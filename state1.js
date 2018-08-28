@@ -1,12 +1,21 @@
 var spaceship;
+var rocks;
+var lftBtn;
+var rgtBtn;
 var speed = 15;
+var rockTimer = 0;
+
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
   preload: function() {
     game.load.image('spaceship', 'assets/spaceship.png');
+    game.load.image('rock1', 'assets/rock1.png');
+    game.load.image('rock2', 'assets/rock2.png');
+    game.load.image('rock3', 'assets/rock3.png');
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
   },
+/*-----------------------------------------------------------*/
   create: function() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -14,16 +23,67 @@ orionRescue.state1.prototype = {
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
-    game.physics.enable(spaceship);
+    game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.collideWorldBounds = true;
 
-    //var lftBtn = game.add.button(gameWidth * 0.2, gameHeight * 0.8, 'leftBtn', mov, this);
+    rocks = game.add.group();
+    rocks.enableBody = true;
+    rocks.physicsBodyType = Phaser.Physics.ARCADE;
+    rocks.createMultiple(30, ['rock1', 'rock2', 'rock3']);
+    rocks.setAll('anchor.x', 0.5);
+    rocks.setAll('anchor.y', 1);
+    rocks.setAll('outOfBoundsKill', true);
+    rocks.setAll('checkWorldBounds', true);
+
+    rgtBtn = game.add.button(gameWidth * 0.9, gameHeight * 0.9, 'rightBtn');
+    lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
+    btnSA(rgtBtn, 0.5);
+    btnSA(lftBtn, 0.5);
   },
+/*-----------------------------------------------------------*/
   update: function() {
+    lftBtn.onInputOver.add(this.movLeft, lftBtn);
+    rgtBtn.onInputOver.add(this.movRight, rgtBtn);
+
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
       spaceship.x += speed;
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
       spaceship.x -= speed;
     }
+
+    if(spaceship.alive) {
+      game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
+
+      if(game.time.now > rockTimer) {
+        rockShower();
+      }
+    }
+  },
+
+  movLeft: function() {
+    spaceship.x -= speed;
+  },
+
+  movRight: function() {
+    spaceship.x += speed;
   }
 };
+
+function btnSA(btn, size) {
+  btn.anchor.setTo(0.5, 0.5);
+  btn.scale.setTo(0.35);
+};
+
+function collisionHandler(starship, rock) {
+  starship.kill();
+  rock.kill();
+}
+
+function rockShower() {
+  rock = rocks.getFirstExists(false);
+  if(spaceship.alive) {
+    rock.reset(game.world.centerX, 0);
+    game.physics.arcade.moveToObject(rock, spaceship, 500);
+    rockTimer = game.time.now + 1000;
+  }
+}
