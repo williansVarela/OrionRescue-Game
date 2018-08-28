@@ -80,10 +80,14 @@ function collisionHandler(starship, rock) {
 }
 
 function rockShower() {
-  rock = rocks.getFirstExists(false);
+  rock = rocks.getRandom();
+  while(rock.alive) {
+    rock = rocks.getRandom();
+  }
   if(spaceship.alive) {
-    rock.reset(game.world.centerX, 0);
-    game.physics.arcade.moveToObject(rock, spaceship, 500);
+    var xPos = ((Math.random() * (gameWidth - rock.width/2)) + rock.width/2);
+    rock.reset(xPos, 0);
+    game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, 500);
     rockTimer = game.time.now + 1000;
   }
 }
