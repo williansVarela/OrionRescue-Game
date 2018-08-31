@@ -4,6 +4,13 @@ var lftBtn;
 var rgtBtn;
 var speed = 3000;
 var rockTimer = 0;
+var fallPttrns = [
+  [[0, 0, 1], [0, 0, 1], [0, 0, 1]],
+  [[0, 1, 0], [0, 1, 0], [0, 1, 0]],
+  [[1, 0, 0], [1, 0, 0], [1, 0, 0]],
+  [[1, 0, 1], [1, 0, 1], [1, 0, 1]],
+  [[1, 0, 1], [0, 0, 0], [0, 1, 0]]
+];
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -93,4 +100,19 @@ function rockShower() {
     game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, 500);
     rockTimer = game.time.now + 1000;
   }
+}
+
+
+function arrToPosArr(loc) {
+  var posArr = fallPttrns[loc];
+  var x;
+  for(var i = 0; i < fallPttrns[loc].length; i++) {
+    for(var j = 0; j < fallPttrns[loc][i].length; j++) {
+      if(fallPttrns[loc][i][j] == 1) {
+        x = gameWidth*(0.166667 + j*2*0.166667);
+        fallPttrns[loc][i][j] = x;
+      }
+    }
+  }
+  return posArr;
 }
