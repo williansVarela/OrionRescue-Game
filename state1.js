@@ -3,7 +3,6 @@ var rocks;
 var lftBtn;
 var rgtBtn;
 var speed = 15;
-var rockTimer = 0;
 var fallPttrns = [
   [[0, 0, 1], [0, 0, 1], [0, 0, 1]],
   [[0, 1, 0], [0, 1, 0], [0, 1, 0]],
@@ -46,6 +45,10 @@ orionRescue.state1.prototype = {
     lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
     btnSA(rgtBtn, 0.5);
     btnSA(lftBtn, 0.5);
+
+    game.time.events.add(2000, function () {
+      game.time.events.loop(2000, rockShower);
+    });
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -60,10 +63,6 @@ orionRescue.state1.prototype = {
 
     if(spaceship.alive) {
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
-
-      if(game.time.now > rockTimer) {
-        rockShower();
-      }
     }
   },
 
@@ -87,15 +86,23 @@ function collisionHandler(starship, rock) {
 }
 
 function rockShower() {
-  rock = rocks.getRandom();
-  while(rock.alive) {
-    rock = rocks.getRandom();
-  }
+  loc = 0;
+  var xPos;
   if(spaceship.alive) {
-    var xPos = ((Math.random() * (gameWidth - rock.width/2)) + rock.width/2);
-    rock.reset(xPos, 0);
-    game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, 500);
-    rockTimer = game.time.now + 1000;
+    for(var i = 0; i < fallPttrns[loc].length; i++) {
+      for(var j = 0; j < fallPttrns[loc][i].length; j++) {
+        if(fallPttrns[loc][i][j] == 1) {
+          rock = rocks.getRandom();
+          while(rock.alive) {
+            rock = rocks.getRandom();
+          }
+          xPos = gameWidth*(0.166667 + j*2*0.166667);
+          rock.reset(xPos, 0);
+          game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, 500);
+        }
+      }
+    }
+
   }
 }
 
@@ -103,13 +110,6 @@ function rockShower() {
 function arrToPosArr(loc) {
   var posArr = fallPttrns[loc];
   var x;
-  for(var i = 0; i < fallPttrns[loc].length; i++) {
-    for(var j = 0; j < fallPttrns[loc][i].length; j++) {
-      if(fallPttrns[loc][i][j] == 1) {
-        x = gameWidth*(0.166667 + j*2*0.166667);
-        fallPttrns[loc][i][j] = x;
-      }
-    }
-  }
+
   return posArr;
 }
