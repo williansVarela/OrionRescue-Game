@@ -2,7 +2,7 @@ var spaceship;
 var rocks;
 var lftBtn;
 var rgtBtn;
-var speed = 15;
+var speed = 3000;
 var rockTimer = 0;
 
 orionRescue.state1 = function() {};
@@ -24,6 +24,7 @@ orionRescue.state1.prototype = {
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
+    spaceship.body.drag.x = 4500;
     spaceship.body.collideWorldBounds = true;
 
     rocks = game.add.group();
@@ -46,9 +47,11 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputOver.add(this.movRight, rgtBtn);
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-      spaceship.x += speed;
+      spaceship.body.acceleration.x = speed;
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-      spaceship.x -= speed;
+      spaceship.body.acceleration.x = -speed;
+    } else {
+      spaceship.body.acceleration.x = 0;
     }
 
     if(spaceship.alive) {
