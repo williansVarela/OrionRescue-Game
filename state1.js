@@ -27,7 +27,6 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   create: function() {
-    //Enable p2 physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#060014';
