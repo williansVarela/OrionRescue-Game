@@ -3,7 +3,7 @@ var orionRescue = {};
 
 function preload() {
   game.load.image('star', 'assets/star.png');
-  game.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+  game.load.spritesheet('button', 'assets/button_sprite_sheet.png', 386, 142);
 }
 
 var button;
@@ -34,7 +34,7 @@ var spz = 1;
 function create() {
   game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-  button = game.add.button(game.world.centerX - 95, gameHeight*0.8, 'button', actionOnClick, this, 2, 1, 0);
+  button = game.add.button(game.world.centerX - 190, gameHeight*0.8, 'button', actionOnClick, this, 2, 1, 0);
   button.onInputOver.add(over, this);
   button.onInputOut.add(out, this);
   button.onInputUp.add(up, this);
@@ -174,6 +174,7 @@ function update() {
 
 }
 
+//Start button
 function up() {
   console.log('button up', arguments);
 }
@@ -188,5 +189,4 @@ function out() {
 
 function actionOnClick () {
   game.state.start('state1');
-
 }
