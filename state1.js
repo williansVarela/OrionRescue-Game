@@ -29,8 +29,6 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   create: function() {
     //Speed effect on screen
-    game.add.image(0, 0, 'sky');
-
     var emitter = game.add.emitter(game.world.centerX, 0, 100);
 
     emitter.width = game.world.width;
