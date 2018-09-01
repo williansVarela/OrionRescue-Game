@@ -2,7 +2,7 @@ var spaceship;
 var rocks;
 var lftBtn;
 var rgtBtn;
-var speed = 15;
+var speed = 3000;
 var rockTimer = 0;
 var fallPttrns = [
   [[0, 0, 1], [0, 0, 1], [0, 0, 1]],
@@ -21,9 +21,13 @@ orionRescue.state1.prototype = {
     game.load.image('rock3', 'assets/rock3.png');
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
+
+    //Load physics data to use in P2 physics
+    game.load.physics('physicsData', 'assets/physics/sprites.json');
   },
 /*-----------------------------------------------------------*/
   create: function() {
+    //Enable p2 physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#060014';
@@ -31,6 +35,7 @@ orionRescue.state1.prototype = {
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
+    spaceship.body.drag.x = 4500;
     spaceship.body.collideWorldBounds = true;
 
     rocks = game.add.group();
@@ -53,9 +58,11 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputOver.add(this.movRight, rgtBtn);
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-      spaceship.x += speed;
+      spaceship.body.acceleration.x = speed;
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-      spaceship.x -= speed;
+      spaceship.body.acceleration.x = -speed;
+    } else {
+      spaceship.body.acceleration.x = 0;
     }
 
     if(spaceship.alive) {
