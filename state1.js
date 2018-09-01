@@ -21,12 +21,35 @@ orionRescue.state1.prototype = {
     game.load.image('rock3', 'assets/rock3.png');
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
+    game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
     //Load physics data to use in P2 physics
     game.load.physics('physicsData', 'assets/physics/sprites.json');
   },
 /*-----------------------------------------------------------*/
   create: function() {
+    //Speed effect on screen
+    game.add.image(0, 0, 'sky');
+
+    var emitter = game.add.emitter(game.world.centerX, 0, 100);
+
+    emitter.width = game.world.width;
+    // emitter.angle = 30; // uncomment to set an angle for the rain.
+
+    emitter.makeParticles('rain');
+
+    emitter.minParticleScale = 0.1;
+    emitter.maxParticleScale = 0.4;
+
+    emitter.setYSpeed(3000, 5000);
+    emitter.setXSpeed(-5, 5);
+
+    emitter.minRotation = 0;
+    emitter.maxRotation = 0;
+
+    emitter.start(false, 1600, 30, 0);
+    //End speed effect
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#060014';
