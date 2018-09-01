@@ -14,9 +14,13 @@ orionRescue.state1.prototype = {
     game.load.image('rock3', 'assets/rock3.png');
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
+
+    //Load physics data to use in P2 physics
+    game.load.physics('physicsData', 'assets/physics/sprites.json');
   },
 /*-----------------------------------------------------------*/
   create: function() {
+    //Enable p2 physics
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#060014';
