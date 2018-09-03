@@ -1,7 +1,9 @@
 var spaceship;
 var rocks;
 var lftBtn;
+var lftBtnPressed = false;
 var rgtBtn;
+var rgtBtnPressed = false;
 var speed = 3000;
 var rockTimer = 0;
 var fallPttrns = [
@@ -47,7 +49,7 @@ orionRescue.state1.prototype = {
 
     emitter.start(false, 1600, 30, 0);
     //End speed effect
-    
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = '#060014';
@@ -71,17 +73,20 @@ orionRescue.state1.prototype = {
     lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
     btnSA(rgtBtn, 0.5);
     btnSA(lftBtn, 0.5);
+
+    lftBtn.onInputDown.add(this.movLeft, lftBtn);
+    lftBtn.onInputUp.add(this.stopLeft, lftBtn);
+    rgtBtn.onInputDown.add(this.movRight, rgtBtn);
+    rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
   },
 /*-----------------------------------------------------------*/
   update: function() {
-    lftBtn.onInputOver.add(this.movLeft, lftBtn);
-    rgtBtn.onInputOver.add(this.movRight, rgtBtn);
 
-    if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+    if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
       spaceship.body.acceleration.x = speed;
-    } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+    } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
       spaceship.body.acceleration.x = -speed;
-    } else {
+    } else if(rgtBtnPressed == false && lftBtnPressed == false) {
       spaceship.body.acceleration.x = 0;
     }
 
@@ -95,12 +100,21 @@ orionRescue.state1.prototype = {
   },
 
   movLeft: function() {
-    spaceship.x -= speed;
+    lftBtnPressed = true;
   },
 
   movRight: function() {
-    spaceship.x += speed;
+    rgtBtnPressed = true;
+  },
+
+  stopLeft: function() {
+    lftBtnPressed = false;
+  },
+
+  stopRight: function() {
+    rgtBtnPressed = false;
   }
+
 };
 
 function btnSA(btn, size) {
