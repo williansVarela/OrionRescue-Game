@@ -58,6 +58,7 @@ orionRescue.state1.prototype = {
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.drag.x = 5500;
+    spaceship.body.maxVelocity.x = 2000; //Set max velocity for spaceship
     spaceship.body.collideWorldBounds = true;
 
     rocks = game.add.group();
