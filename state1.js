@@ -1,3 +1,5 @@
+var bgColor = '#060014';
+
 var spaceship;
 var rocks;
 var lftBtn;
@@ -8,6 +10,9 @@ var speed = 3000;
 var rockTimer = 0;
 var fallPttrns = [0.166667, 0.5, 0.833334];
 var fallSpeed = 800;
+
+var disBarPct = 100;
+
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -47,7 +52,7 @@ orionRescue.state1.prototype = {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.stage.backgroundColor = '#060014';
+    game.stage.backgroundColor = bgColor;
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
@@ -68,11 +73,29 @@ orionRescue.state1.prototype = {
     lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
     btnSA(rgtBtn, 0.5);
     btnSA(lftBtn, 0.5);
-
     lftBtn.onInputDown.add(this.movLeft, lftBtn);
     lftBtn.onInputUp.add(this.stopLeft, lftBtn);
     rgtBtn.onInputDown.add(this.movRight, rgtBtn);
     rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
+
+    var barConfig =
+    {
+      x: game.world.centerX,
+      y: gameHeight*0.97,
+      width: gameWidth*0.6,
+      height: gameHeight*0.015,
+      bg: {
+      color: '#55DAA4'
+      },
+      bar: {
+        color: '#0C4B45'
+      },
+      animationDuration: 1000,
+      flipped: true
+    };
+
+    this.distanceBar = new HealthBar(this.game, barConfig);
+    game.time.events.loop(Phaser.Timer.SECOND, this.updateBar, this);
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -92,9 +115,13 @@ orionRescue.state1.prototype = {
         var pos = Math.floor(Math.random() * 4);
         rockShower(pos);
       }
-
-
     }
+
+    if(disBarPct == -1) {
+      //VITÓRIA OU FASE 2
+    }
+
+
   },
 
   movLeft: function() {
@@ -111,6 +138,11 @@ orionRescue.state1.prototype = {
 
   stopRight: function() {
     rgtBtnPressed = false;
+  },
+
+  updateBar: function() {
+    disBarPct -= 1;
+    this.distanceBar.setPercent(disBarPct);
   }
 
 };
