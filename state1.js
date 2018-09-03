@@ -6,13 +6,8 @@ var rgtBtn;
 var rgtBtnPressed = false;
 var speed = 3000;
 var rockTimer = 0;
-var fallPttrns = [
-  [[0, 0, 1], [0, 0, 1], [0, 0, 1]],
-  [[0, 1, 0], [0, 1, 0], [0, 1, 0]],
-  [[1, 0, 0], [1, 0, 0], [1, 0, 0]],
-  [[1, 0, 1], [1, 0, 1], [1, 0, 1]],
-  [[1, 0, 1], [0, 0, 0], [0, 1, 0]]
-];
+var fallPttrns = [0.166667, 0.5, 0.833334];
+var fallSpeed = 800;
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -94,8 +89,11 @@ orionRescue.state1.prototype = {
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
 
       if(game.time.now > rockTimer) {
-        rockShower();
+        var pos = Math.floor(Math.random() * 4);
+        rockShower(pos);
       }
+
+
     }
   },
 
@@ -127,30 +125,15 @@ function collisionHandler(starship, rock) {
   rock.kill();
 }
 
-function rockShower() {
+function rockShower(pos) {
   rock = rocks.getRandom();
   while(rock.alive) {
     rock = rocks.getRandom();
   }
   if(spaceship.alive) {
-    var xPos = ((Math.random() * (gameWidth - rock.width/2)) + rock.width/2);
+    var xPos = fallPttrns[pos] * gameWidth;
     rock.reset(xPos, 0);
-    game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, 500);
+    game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, fallSpeed);
     rockTimer = game.time.now + 1000;
   }
-}
-
-
-function arrToPosArr(loc) {
-  var posArr = fallPttrns[loc];
-  var x;
-  for(var i = 0; i < fallPttrns[loc].length; i++) {
-    for(var j = 0; j < fallPttrns[loc][i].length; j++) {
-      if(fallPttrns[loc][i][j] == 1) {
-        x = gameWidth*(0.166667 + j*2*0.166667);
-        fallPttrns[loc][i][j] = x;
-      }
-    }
-  }
-  return posArr;
 }
