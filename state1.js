@@ -82,9 +82,9 @@ orionRescue.state1.prototype = {
     var barConfig =
     {
       x: game.world.centerX,
-      y: gameHeight*0.97,
-      width: gameWidth*0.6,
-      height: gameHeight*0.015,
+      y: gameHeight*0.975,
+      width: gameWidth*0.5,
+      height: gameHeight*0.0125,
       bg: {
       color: '#55DAA4'
       },
@@ -97,6 +97,7 @@ orionRescue.state1.prototype = {
 
     this.distanceBar = new HealthBar(this.game, barConfig);
     game.time.events.loop(Phaser.Timer.SECOND, this.updateBar, this);
+    game.time.events.loop(Phaser.Timer.SECOND*5, this.updateFallSpeed, this);
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -118,7 +119,7 @@ orionRescue.state1.prototype = {
       }
     }
 
-    if(disBarPct == -1) {
+    if(disBarPct < 0) {
       //VITÓRIA OU FASE 2
     }
 
@@ -142,8 +143,12 @@ orionRescue.state1.prototype = {
   },
 
   updateBar: function() {
-    disBarPct -= 1;
+    disBarPct -= 1/(800/fallSpeed);
     this.distanceBar.setPercent(disBarPct);
+  },
+
+  updateFallSpeed: function() {
+    fallSpeed += 35;
   }
 
 };
