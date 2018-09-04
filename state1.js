@@ -49,7 +49,7 @@ orionRescue.state1.prototype = {
     game.load.image('rightBtn', 'assets/rgt-btn.png');
     game.load.image('background', 'assets/starry_sky0.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
-    game.load.image('earth', 'assets/earth.png');
+    game.load.image('earth', 'assets/earth_.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
   },
@@ -138,10 +138,10 @@ orionRescue.state1.prototype = {
       width: gameWidth*0.5,
       height: gameHeight*0.0125,
       bg: {
-      color: '#55DAA4'
+      color: '#D7FFFF'
       },
       bar: {
-        color: '#0C4B45'
+        color: '#060014'
       },
       animationDuration: 1000,
       flipped: true
