@@ -1,4 +1,5 @@
 var bgColor = '#060014';
+var starryBG;
 
 var bgrock1;
 var bgrock2;
@@ -46,7 +47,7 @@ orionRescue.state1.prototype = {
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
-    game.load.image('background', 'assets/background.jpg');
+    game.load.image('background', 'assets/starry_sky0.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
@@ -55,7 +56,7 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   create: function() {
 
-    /*game.add.tileSprite(0, 0, game.width, game.height, 'background');*/
+    starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'background');
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = bgColor;
@@ -93,7 +94,7 @@ orionRescue.state1.prototype = {
         sprite.angle = Math.floor(Math.random() * 360) -180;
         sprite.scale.set(game.rnd.realInRange(0.5, 1));
 
-        var speed = game.rnd.between(fallSpeed*1.5, fallSpeed*2);
+        var speed = game.rnd.between(fallSpeed*8, fallSpeed*10);
 
         game.add.tween(sprite).to({ y: gameHeight*1.2 }, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
 
@@ -167,7 +168,7 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   update: function() {
-
+    starryBG.tilePosition.y += 1;
     scoretext.text = score + ' pts';
 
 
