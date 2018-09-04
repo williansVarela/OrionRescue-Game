@@ -79,53 +79,25 @@ orionRescue.state1.prototype = {
     emitter.start(false, 1600, 30, 0);
     //End speed effect
 
-    bgrock1 = game.add.sprite(gameWidth*0.05, gameHeight*0.08, 'bgrock1');
-    bgrock2 = game.add.sprite(gameWidth*0.85, gameHeight*0.6, 'bgrock2');
-    bgrock3 = game.add.sprite(gameWidth*0.05, gameHeight*0.45, 'bgrock3');
-    bgrock4 = game.add.sprite(gameWidth*0.8, gameHeight*0.5, 'bgrock4');
-    bgrock5 = game.add.sprite(gameWidth*0.8, gameHeight*0.1, 'bgrock5');
-    bgrock6 = game.add.sprite(gameWidth*0.4, gameHeight*0.35, 'bgrock6');
-    bgrock7 = game.add.sprite(gameWidth*0.2, gameHeight*0.4, 'bgrock7');
-    bgrock8 = game.add.sprite(gameWidth*0.9, gameHeight*0.4, 'bgrock8');
 
-    bgrock1.width = gameWidth*0.4;
-    bgrock1.height = gameWidth*0.4;
+    var delay = 0;
+    var bgrockArr = ['bgrock1', 'bgrock2', 'bgrock3', 'bgrock4', 'bgrock5', 'bgrock6', 'bgrock7', 'bgrock8'];
 
-    bgrock2.width = gameWidth*0.3;
-    bgrock2.height = gameWidth*0.3;
+    for (var i = 0; i < 20; i++)
+    {
+        var rockIndex = Math.floor(Math.random() * bgrockArr.length);
+        var sprite = game.add.sprite(game.world.randomX, -gameHeight*0.2, bgrockArr[rockIndex]);
 
-    bgrock3.width = gameWidth*0.08;
-    bgrock3.height = gameWidth*0.08;
+        sprite.anchor.setTo(0.5, 1);
+        sprite.angle = Math.floor(Math.random() * 360) -180;
+        sprite.scale.set(game.rnd.realInRange(0.5, 1));
 
-    bgrock4.width = gameWidth*0.14;
-    bgrock4.height = gameWidth*0.14;
+        var speed = game.rnd.between(fallSpeed*1.5, fallSpeed*2);
 
-    bgrock5.width = gameWidth*0.08;
-    bgrock5.height = gameWidth*0.08;
+        game.add.tween(sprite).to({ y: gameHeight*1.2 }, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
 
-    bgrock6.width = gameWidth*0.11;
-    bgrock6.height = gameWidth*0.11;
-
-    bgrock7.width = gameWidth*0.09;
-    bgrock7.height = gameWidth*0.09;
-
-    bgrock8.width = gameWidth*0.09;
-    bgrock8.height = gameWidth*0.09;
-
-    var multiplier = 1.5;
-
-    //game.add.tween().to(properties, duration, ease, autoStart, delay, repeat, yoyo)
-    game.add.tween(bgrock1).to({x: bgrock1.x - gameWidth*0.02, y: bgrock1.y + gameHeight*0.05}, 7000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock2).to({x: bgrock2.x + gameWidth*0.02, y: bgrock2.y + gameHeight*0.06}, 12000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock3).to({y: bgrock3.y + gameHeight*0.02}, 3000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock4).to({y: bgrock4.y + gameHeight*0.045}, 6000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock5).to({y: bgrock5.y + gameHeight*0.05}, 7000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock6).to({y: bgrock6.y + gameHeight*0.01}, 3000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock7).to({y: bgrock7.y + gameHeight*0.03}, 7500*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-    game.add.tween(bgrock8).to({y: bgrock8.y + gameHeight*0.02}, 4000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
-
-
-
+        delay += 200;
+    }
 
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
@@ -209,7 +181,7 @@ orionRescue.state1.prototype = {
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
 
       if(game.time.now > rockTimer) {
-        var pos = Math.floor(Math.random() * 4);
+        var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
       }
     }
