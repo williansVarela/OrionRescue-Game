@@ -32,8 +32,6 @@ orionRescue.state1.prototype = {
     game.load.image('earth', 'assets/earth.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
-    //Load physics data to use in P2 physics
-    game.load.physics('physicsData', 'assets/physics/sprites.json');
   },
 /*-----------------------------------------------------------*/
   create: function() {
