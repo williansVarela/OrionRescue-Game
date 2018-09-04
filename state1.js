@@ -13,6 +13,11 @@ var fallSpeed = 800;
 
 var disBarPct = 100;
 
+var graphics;
+var score = 0;
+var scoretext;
+
+
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -24,6 +29,7 @@ orionRescue.state1.prototype = {
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
     game.load.image('background', 'assets/background.jpg');
+    game.load.image('earth', 'assets/earth.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
     //Load physics data to use in P2 physics
@@ -32,7 +38,7 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   create: function() {
     game.add.tileSprite(0, 0, game.width, game.height, 'background');
-    
+
     //Speed effect on screen
     var emitter = game.add.emitter(game.world.centerX, 0, 100);
 
@@ -52,7 +58,7 @@ orionRescue.state1.prototype = {
 
     emitter.start(false, 1600, 30, 0);
     //End speed effect
-    
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = bgColor;
@@ -73,14 +79,17 @@ orionRescue.state1.prototype = {
     rocks.setAll('outOfBoundsKill', true);
     rocks.setAll('checkWorldBounds', true);
 
-    rgtBtn = game.add.button(gameWidth * 0.9, gameHeight * 0.9, 'rightBtn');
-    lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
-    btnSA(rgtBtn, 0.5);
-    btnSA(lftBtn, 0.5);
-    lftBtn.onInputDown.add(this.movLeft, lftBtn);
-    lftBtn.onInputUp.add(this.stopLeft, lftBtn);
-    rgtBtn.onInputDown.add(this.movRight, rgtBtn);
-    rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
+
+    var textStyle =
+    {
+      font: '30pt Merriweather',
+      fill: 'white',
+      boundsAlignH: 'center',
+      boundsAlignV: 'middle'
+    }
+
+    scoretext = game.add.text(gameWidth*0.02, gameWidth*0.02, '', textStyle);
+    scoretext.text = score + ' pts';
 
     var barConfig =
     {
@@ -101,9 +110,27 @@ orionRescue.state1.prototype = {
     this.distanceBar = new HealthBar(this.game, barConfig);
     game.time.events.loop(Phaser.Timer.SECOND, this.updateBar, this);
     game.time.events.loop(Phaser.Timer.SECOND*5, this.updateFallSpeed, this);
+
+    var earth = game.add.sprite(game.world.centerX + barConfig.width/2, barConfig.y, 'earth');
+    earth.anchor.setTo(0.5, 0.5);
+    earth.width = gameWidth*0.05;
+    earth.height = gameWidth*0.05;
+
+    rgtBtn = game.add.button(gameWidth * 0.9, gameHeight * 0.9, 'rightBtn');
+    lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
+    btnSA(rgtBtn, 0.5);
+    btnSA(lftBtn, 0.5);
+    lftBtn.onInputDown.add(this.movLeft, lftBtn);
+    lftBtn.onInputUp.add(this.stopLeft, lftBtn);
+    rgtBtn.onInputDown.add(this.movRight, rgtBtn);
+    rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
+
   },
 /*-----------------------------------------------------------*/
   update: function() {
+
+    scoretext.text = score + ' pts';
+
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
       spaceship.body.acceleration.x = speed;
@@ -148,6 +175,7 @@ orionRescue.state1.prototype = {
   updateBar: function() {
     disBarPct -= 1/(800/fallSpeed);
     this.distanceBar.setPercent(disBarPct);
+    score++;
   },
 
   updateFallSpeed: function() {
