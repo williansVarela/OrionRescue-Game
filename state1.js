@@ -1,5 +1,14 @@
 var bgColor = '#060014';
 
+var bgrock1;
+var bgrock2;
+var bgrock3;
+var bgrock4;
+var bgrock5;
+var bgrock6;
+var bgrock7;
+var bgrock8;
+
 var spaceship;
 var rocks;
 var lftBtn;
@@ -23,9 +32,18 @@ orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
   preload: function() {
     game.load.image('spaceship', 'assets/spaceship.png');
-    game.load.image('rock1', 'assets/rock1.png');
-    game.load.image('rock2', 'assets/rock2.png');
-    game.load.image('rock3', 'assets/rock3.png');
+    game.load.image('rock1', 'assets/asteroids/asteroid1.png');
+    game.load.image('rock2', 'assets/asteroids/asteroid2.png');
+
+    game.load.image('bgrock1', 'assets/asteroids/bg_asteroid01.png');
+    game.load.image('bgrock2', 'assets/asteroids/bg_asteroid02.png');
+    game.load.image('bgrock3', 'assets/asteroids/bg_asteroid03.png');
+    game.load.image('bgrock4', 'assets/asteroids/bg_asteroid04.png');
+    game.load.image('bgrock5', 'assets/asteroids/bg_asteroid05.png');
+    game.load.image('bgrock6', 'assets/asteroids/bg_asteroid06.png');
+    game.load.image('bgrock7', 'assets/asteroids/bg_asteroid07.png');
+    game.load.image('bgrock8', 'assets/asteroids/bg_asteroid08.png');
+
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
     game.load.image('background', 'assets/background.jpg');
@@ -35,7 +53,11 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   create: function() {
-    game.add.tileSprite(0, 0, game.width, game.height, 'background');
+
+    /*game.add.tileSprite(0, 0, game.width, game.height, 'background');*/
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.stage.backgroundColor = bgColor;
 
     //Speed effect on screen
     var emitter = game.add.emitter(game.world.centerX, 0, 100);
@@ -57,9 +79,54 @@ orionRescue.state1.prototype = {
     emitter.start(false, 1600, 30, 0);
     //End speed effect
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.stage.backgroundColor = bgColor;
+    bgrock1 = game.add.sprite(gameWidth*0.05, gameHeight*0.08, 'bgrock1');
+    bgrock2 = game.add.sprite(gameWidth*0.85, gameHeight*0.6, 'bgrock2');
+    bgrock3 = game.add.sprite(gameWidth*0.05, gameHeight*0.45, 'bgrock3');
+    bgrock4 = game.add.sprite(gameWidth*0.8, gameHeight*0.5, 'bgrock4');
+    bgrock5 = game.add.sprite(gameWidth*0.8, gameHeight*0.1, 'bgrock5');
+    bgrock6 = game.add.sprite(gameWidth*0.4, gameHeight*0.35, 'bgrock6');
+    bgrock7 = game.add.sprite(gameWidth*0.2, gameHeight*0.4, 'bgrock7');
+    bgrock8 = game.add.sprite(gameWidth*0.9, gameHeight*0.4, 'bgrock8');
+
+    bgrock1.width = gameWidth*0.4;
+    bgrock1.height = gameWidth*0.4;
+
+    bgrock2.width = gameWidth*0.3;
+    bgrock2.height = gameWidth*0.3;
+
+    bgrock3.width = gameWidth*0.08;
+    bgrock3.height = gameWidth*0.08;
+
+    bgrock4.width = gameWidth*0.14;
+    bgrock4.height = gameWidth*0.14;
+
+    bgrock5.width = gameWidth*0.08;
+    bgrock5.height = gameWidth*0.08;
+
+    bgrock6.width = gameWidth*0.11;
+    bgrock6.height = gameWidth*0.11;
+
+    bgrock7.width = gameWidth*0.09;
+    bgrock7.height = gameWidth*0.09;
+
+    bgrock8.width = gameWidth*0.09;
+    bgrock8.height = gameWidth*0.09;
+
+    var multiplier = 1.5;
+
+    //game.add.tween().to(properties, duration, ease, autoStart, delay, repeat, yoyo)
+    game.add.tween(bgrock1).to({x: bgrock1.x - gameWidth*0.02, y: bgrock1.y + gameHeight*0.05}, 7000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock2).to({x: bgrock2.x + gameWidth*0.02, y: bgrock2.y + gameHeight*0.06}, 12000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock3).to({y: bgrock3.y + gameHeight*0.02}, 3000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock4).to({y: bgrock4.y + gameHeight*0.045}, 6000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock5).to({y: bgrock5.y + gameHeight*0.05}, 7000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock6).to({y: bgrock6.y + gameHeight*0.01}, 3000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock7).to({y: bgrock7.y + gameHeight*0.03}, 7500*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+    game.add.tween(bgrock8).to({y: bgrock8.y + gameHeight*0.02}, 4000*multiplier, 'Sine.easeInOut', true, 0, false, true).yoyo(true);
+
+
+
+
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
@@ -71,7 +138,7 @@ orionRescue.state1.prototype = {
     rocks = game.add.group();
     rocks.enableBody = true;
     rocks.physicsBodyType = Phaser.Physics.ARCADE;
-    rocks.createMultiple(30, ['rock1', 'rock2', 'rock3']);
+    rocks.createMultiple(30, ['rock1', 'rock2']);
     rocks.setAll('anchor.x', 0.5);
     rocks.setAll('anchor.y', 1);
     rocks.setAll('outOfBoundsKill', true);
