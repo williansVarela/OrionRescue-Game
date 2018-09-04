@@ -82,7 +82,7 @@ orionRescue.state1.prototype = {
 
     var textStyle =
     {
-      font: '30pt Merriweather',
+      font: '30pt Arial',
       fill: 'white',
       boundsAlignH: 'center',
       boundsAlignV: 'middle'
