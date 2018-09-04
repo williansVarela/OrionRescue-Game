@@ -47,6 +47,7 @@ orionRescue.state1.prototype = {
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
     game.load.image('background', 'assets/background.jpg');
+    game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
@@ -99,6 +100,7 @@ orionRescue.state1.prototype = {
         delay += 200;
     }
 
+    game.add.tileSprite(0, 0, game.width, game.height, 'bgGradient');
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
