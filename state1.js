@@ -23,6 +23,7 @@ orionRescue.state1.prototype = {
     game.load.image('rock3', 'assets/rock3.png');
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
+    game.load.image('background', 'assets/background.jpg');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
     //Load physics data to use in P2 physics
@@ -30,6 +31,8 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   create: function() {
+    game.add.tileSprite(0, 0, game.width, game.height, 'background');
+    
     //Speed effect on screen
     var emitter = game.add.emitter(game.world.centerX, 0, 100);
 
@@ -49,7 +52,7 @@ orionRescue.state1.prototype = {
 
     emitter.start(false, 1600, 30, 0);
     //End speed effect
-
+    
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = bgColor;
