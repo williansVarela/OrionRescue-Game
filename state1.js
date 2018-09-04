@@ -184,6 +184,7 @@ orionRescue.state1.prototype = {
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
 
       if(game.time.now > rockTimer) {
+        fallPttrns = [fallRandom(100, 300), fallRandom(400, 600), fallRandom(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
       }
@@ -246,3 +247,8 @@ function rockShower(pos) {
     rockTimer = game.time.now + 1000;
   }
 }
+
+
+function fallRandom(min, max) {
+  return (Math.floor(Math.random() * (max - min + 1) ) + min)/1000;
+};
