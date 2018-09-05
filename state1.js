@@ -47,7 +47,7 @@ orionRescue.state1.prototype = {
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
-    game.load.image('background', 'assets/starry_sky0.png');
+    game.load.image('starryBG', 'assets/starry_sky0.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth_.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
@@ -56,7 +56,7 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   create: function() {
 
-    starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'background');
+    starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'starryBG');
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = bgColor;
