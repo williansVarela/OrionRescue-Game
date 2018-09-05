@@ -1,6 +1,7 @@
 var bgColor = '#060014';
 var starryBG;
 
+var bgRocks;
 var bgrock1;
 var bgrock2;
 var bgrock3;
@@ -12,10 +13,13 @@ var bgrock8;
 
 var spaceship;
 var rocks;
+var rocksScale;
+
 var lftBtn;
 var lftBtnPressed = false;
 var rgtBtn;
 var rgtBtnPressed = false;
+
 var speed = 3000;
 var rockTimer = 0;
 var fallPttrns;
@@ -23,14 +27,26 @@ var fallSpeed = 800;
 
 var disBarPct = 100;
 
-var graphics;
 var score = 0;
-var scoretext;
 
 var plntSpeed = 2;
 
+var scoreText = null;
+var grd;
+
+var starRain;
+
+
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
+
+  WebFontConfig: {
+    active: function() { game.time.events.add(Phaser.Timer.SECOND, createText, this); },
+    google: {
+    families: ['Revalia']
+    }
+  },
+
   preload: function() {
     game.load.image('spaceship', 'assets/spaceship.png');
     game.load.image('rock1', 'assets/asteroids/asteroid1.png');
@@ -53,60 +69,60 @@ orionRescue.state1.prototype = {
     game.load.image('earth', 'assets/earth_.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
 
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
+
   },
 /*-----------------------------------------------------------*/
   create: function() {
 
+    // Basic Set Up
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    // Starry and Planet Backgrounds --------------------------------------------------------------------
     starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'starryBG');
     planetBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'planetBG');
 
-
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.stage.backgroundColor = bgColor;
-
-    //Speed effect on screen
-    var emitter = game.add.emitter(game.world.centerX, 0, 100);
-
-    emitter.width = game.world.width;
-    // emitter.angle = 30; // uncomment to set an angle for the rain.
-
-    emitter.makeParticles('rain');
-
-    emitter.minParticleScale = 0.1;
-    emitter.maxParticleScale = 0.4;
-
-    emitter.setYSpeed(3000, 5000);
-    emitter.setXSpeed(-5, 5);
-
-    emitter.minRotation = 0;
-    emitter.maxRotation = 0;
-
-    emitter.start(false, 1600, 30, 0);
-    //End speed effect
-
-
+    // Background Rocks --------------------------------------------------------------------
     var delay = 0;
     var bgrockArr = ['bgrock1', 'bgrock2', 'bgrock3', 'bgrock4', 'bgrock5', 'bgrock6', 'bgrock7', 'bgrock8'];
 
-    for (var i = 0; i < 20; i++)
-    {
-        var rockIndex = Math.floor(Math.random() * bgrockArr.length);
-        var sprite = game.add.sprite(game.world.randomX, -gameHeight*0.2, bgrockArr[rockIndex]);
+    for (var i = 0; i < 20; i++) {
+      var rockIndex = Math.floor(Math.random() * bgrockArr.length);
+      bgRocks = game.add.sprite(game.world.randomX, -gameHeight*0.2, bgrockArr[rockIndex]);
 
-        sprite.anchor.setTo(0.5, 1);
-        sprite.angle = Math.floor(Math.random() * 360) -180;
-        sprite.scale.set(game.rnd.realInRange(0.5, 1));
+      bgRocks.anchor.setTo(0.5, 1);
+      bgRocks.angle = Math.floor(Math.random() * 360) -180;
+      bgRocks.scale.set(game.rnd.realInRange(0.5, 1));
 
-        var speed = game.rnd.between(fallSpeed*8, fallSpeed*10);
+      var speed = game.rnd.between(fallSpeed*8, fallSpeed*10);
 
-        game.add.tween(sprite).to({ y: gameHeight*1.2 }, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
+      game.add.tween(bgRocks).to({ y: gameHeight*1.2 }, speed, Phaser.Easing.Sinusoidal.InOut, true, delay, 1000, false);
 
-        delay += 200;
+      delay += 200;
     }
 
+    // Stars rain --------------------------------------------------------------------
+    starRain = game.add.emitter(game.world.centerX, 0, 100);
+    starRain.width = game.world.width;
+
+    starRain.makeParticles('rain');
+
+    starRain.minParticleScale = 0.1;
+    starRain.maxParticleScale = 0.4;
+
+    starRain.setYSpeed(3000, 5000);
+    starRain.setXSpeed(-5, 5);
+
+    starRain.minRotation = 0;
+    starRain.maxRotation = 0;
+
+    starRain.start(false, 1600, 30, 0);
+
+    // Background Gradient --------------------------------------------------------------------
     game.add.tileSprite(0, 0, game.width, game.height, 'bgGradient');
 
+    // Spaceship Set Up --------------------------------------------------------------------
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
@@ -114,6 +130,7 @@ orionRescue.state1.prototype = {
     spaceship.body.maxVelocity.x = 2000; //Set max velocity for spaceship
     spaceship.body.collideWorldBounds = true;
 
+    // Red Asteroids Set Up --------------------------------------------------------------------
     rocks = game.add.group();
     rocks.enableBody = true;
     rocks.physicsBodyType = Phaser.Physics.ARCADE;
@@ -123,18 +140,26 @@ orionRescue.state1.prototype = {
     rocks.setAll('outOfBoundsKill', true);
     rocks.setAll('checkWorldBounds', true);
 
+    // Scoreboard --------------------------------------------------------------------
+    var timeText = game.add.text(gameWidth * 0.025, gameWidth * 0.025, 'PONTOS');
+    scoreText = game.add.text(gameWidth * 0.025, timeText.height * 2, '0');
 
-    var textStyle =
-    {
-      font: '30pt Arial',
-      fill: 'white',
-      boundsAlignH: 'center',
-      boundsAlignV: 'middle'
-    };
+    timeText.anchor.setTo(0); timeText.anchor.setTo(0);
 
-    scoretext = game.add.text(gameWidth*0.02, gameWidth*0.02, '', textStyle);
-    scoretext.text = score + ' pts';
+    timeText.font = 'Revalia'; scoreText.font = 'Revalia';
+    timeText.fontSize = 30; scoreText.fontSize = 60;
 
+      //  x0, y0 - x1, y1
+    grd = scoreText.context.createLinearGradient(0, 0, 0, scoreText.canvas.height);
+    grd.addColorStop(0, '#EDECF1');
+    grd.addColorStop(1, '#C9CACE');
+    scoreText.fill = grd;
+    timeText.fill = '#EDECF1';
+
+    timeText.align = 'center'; scoreText.align = 'center';
+    scoreText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
+
+    // Distance Bar --------------------------------------------------------------------
     var barConfig =
     {
       x: game.world.centerX,
@@ -160,6 +185,7 @@ orionRescue.state1.prototype = {
     earth.width = gameWidth*0.05;
     earth.height = gameWidth*0.05;
 
+    // Buttons --------------------------------------------------------------------
     rgtBtn = game.add.button(gameWidth * 0.9, gameHeight * 0.9, 'rightBtn');
     lftBtn = game.add.button(gameWidth * 0.1, gameHeight * 0.9, 'leftBtn');
     btnSA(rgtBtn, 0.5);
@@ -172,16 +198,13 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   update: function() {
+    // Starry and Planet Backgrounds Movement --------------------------------------------------------------------
     starryBG.tilePosition.y += 1;
     if(planetBG.tilePosition.y < 8990) {
       planetBG.tilePosition.y += plntSpeed;
     }
 
-
-    scoretext.text = score + ' pts';
-
-
-
+    // SpaceShip Movement --------------------------------------------------------------------
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
       spaceship.body.acceleration.x = speed;
     } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
@@ -191,18 +214,27 @@ orionRescue.state1.prototype = {
     }
 
     if(spaceship.alive) {
+      // Collision --------------------------------------------------------------------
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
 
+      // Scoreboard Update --------------------------------------------------------------------
+      scoreText.text = score;
+
+      // RockShower Call --------------------------------------------------------------------
       if(game.time.now > rockTimer) {
         fallPttrns = [fallRandom(100, 300), fallRandom(400, 600), fallRandom(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
       }
-    }
 
-    if(disBarPct < 0) {
-      //VITÓRIA OU FASE 2
-    }
+      // Victory Checkup --------------------------------------------------------------------
+      if(disBarPct < 0) {
+        //VITÓRIA OU FASE 2
+      }
+
+    } else {  }
+
+
 
 
   },
@@ -224,13 +256,15 @@ orionRescue.state1.prototype = {
   },
 
   updateBar: function() {
-    disBarPct -= 1/(800/fallSpeed);
-    this.distanceBar.setPercent(disBarPct);
-    score++;
+    if(spaceship.alive) {
+      disBarPct -= 1/(800/fallSpeed);
+      this.distanceBar.setPercent(disBarPct);
+      score++;
+    }
   },
 
   updateFallSpeed: function() {
-    fallSpeed += 35;
+    fallSpeed += 25;
   }
 
 };
