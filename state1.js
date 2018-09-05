@@ -287,9 +287,11 @@ function btnSA(btn, size) {
 };
 
 function collisionHandler(starship, rock) {
+  // Explosion Animations --------------------------------------------------------------------
   var blackblast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blackblast');
   blackblast.anchor.setTo(0.5, 0.5);
   blackblast.scale.setTo(4);
+  blackblast.alpha = 0.2;
   blackblast.animations.add('b_explode', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ,18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]);
   blackblast.animations.play('b_explode', 70, false, true);
   var blast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blast');
@@ -297,10 +299,28 @@ function collisionHandler(starship, rock) {
   blast.scale.setTo(2);
   blast.animations.add('explode', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ,18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]);
   blast.animations.play('explode', 80, false, true);
+
+  // Game Over Text --------------------------------------------------------------------
+  var gameOverText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Game Over');
+
+  gameOverText.anchor.setTo(0.5);
+
+  gameOverText.font = 'Revalia';
+  gameOverText.fontSize = 190;
+
+  var grdGO = gameOverText.context.createLinearGradient(0, 0, 0, gameOverText.canvas.height);
+  grdGO.addColorStop(0, '#EDECF1');
+  grdGO.addColorStop(1, '#C9CACE');
+  gameOverText.fill = grdGO;
+
+  gameOverText.align = 'center';
+  gameOverText.setShadow(5, 5, 'rgba(131,0,8,0.8)', 5);
+  gameOverText.alpha = 0;
+  game.add.tween(gameOverText).to( { alpha: 1 }, 2000, "Linear", true);
+
+  // Kill Units  --------------------------------------------------------------------
   spaceship.kill();
   rock.kill();
-
-
 };
 
 function rockShower(pos) {
