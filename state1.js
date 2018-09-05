@@ -18,7 +18,7 @@ var rgtBtn;
 var rgtBtnPressed = false;
 var speed = 3000;
 var rockTimer = 0;
-var fallPttrns = [0.166667, 0.5, 0.833334];
+var fallPttrns;
 var fallSpeed = 800;
 
 var disBarPct = 100;
@@ -27,7 +27,7 @@ var graphics;
 var score = 0;
 var scoretext;
 
-
+var plntSpeed = 2;
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -48,6 +48,7 @@ orionRescue.state1.prototype = {
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
     game.load.image('starryBG', 'assets/starry_sky0.png');
+    game.load.image('planetBG', 'assets/planet_sky1.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth_.png');
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
@@ -57,6 +58,9 @@ orionRescue.state1.prototype = {
   create: function() {
 
     starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'starryBG');
+    planetBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'planetBG');
+
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.stage.backgroundColor = bgColor;
@@ -126,7 +130,7 @@ orionRescue.state1.prototype = {
       fill: 'white',
       boundsAlignH: 'center',
       boundsAlignV: 'middle'
-    }
+    };
 
     scoretext = game.add.text(gameWidth*0.02, gameWidth*0.02, '', textStyle);
     scoretext.text = score + ' pts';
@@ -169,7 +173,13 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   update: function() {
     starryBG.tilePosition.y += 1;
+    if(planetBG.tilePosition.y < 8990) {
+      planetBG.tilePosition.y += plntSpeed;
+    }
+
+
     scoretext.text = score + ' pts';
+
 
 
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
@@ -233,7 +243,7 @@ function btnSA(btn, size) {
 function collisionHandler(starship, rock) {
   starship.kill();
   rock.kill();
-}
+};
 
 function rockShower(pos) {
   rock = rocks.getRandom();
@@ -246,7 +256,7 @@ function rockShower(pos) {
     game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, fallSpeed);
     rockTimer = game.time.now + 1000;
   }
-}
+};
 
 
 function fallRandom(min, max) {
