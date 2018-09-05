@@ -12,8 +12,10 @@ var bgrock7;
 var bgrock8;
 
 var spaceship;
+
 var rocks;
-var rocksScale;
+var rocksScale = 1;
+var rocksInterval = 2000;
 
 var lftBtn;
 var lftBtnPressed = false;
@@ -177,8 +179,8 @@ orionRescue.state1.prototype = {
     };
 
     this.distanceBar = new HealthBar(this.game, barConfig);
-    game.time.events.loop(Phaser.Timer.SECOND, this.updateBar, this);
-    game.time.events.loop(Phaser.Timer.SECOND*5, this.updateFallSpeed, this);
+    game.time.events.loop(Phaser.Timer.SECOND, this.everySecond, this);
+    game.time.events.loop(Phaser.Timer.SECOND*5, this.every5Seconds, this);
 
     var earth = game.add.sprite(game.world.centerX + barConfig.width/2, barConfig.y, 'earth');
     earth.anchor.setTo(0.5, 0.5);
@@ -255,7 +257,7 @@ orionRescue.state1.prototype = {
     rgtBtnPressed = false;
   },
 
-  updateBar: function() {
+  everySecond: function() {
     if(spaceship.alive) {
       disBarPct -= 1/(800/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
@@ -263,8 +265,13 @@ orionRescue.state1.prototype = {
     }
   },
 
-  updateFallSpeed: function() {
+  every5Seconds: function() {
     fallSpeed += 25;
+    if(rocksScale < 1.5) {
+      rocksScale += 0.03;
+    }
+    if(rocksInterval > 1500)
+    rocksInterval -= 50;
   }
 
 };
@@ -287,8 +294,9 @@ function rockShower(pos) {
   if(spaceship.alive) {
     var xPos = fallPttrns[pos] * gameWidth;
     rock.reset(xPos, 0);
+    rock.scale.setTo(rocksScale);
     game.physics.arcade.moveToXY(rock, xPos, gameHeight * 1.2, fallSpeed);
-    rockTimer = game.time.now + 1000;
+    rockTimer = game.time.now + rocksInterval;
   }
 };
 
