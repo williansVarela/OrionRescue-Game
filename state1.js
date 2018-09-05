@@ -69,7 +69,10 @@ orionRescue.state1.prototype = {
     game.load.image('planetBG', 'assets/planet_sky1.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth_.png');
+
     game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
+    game.load.spritesheet('blast', 'assets/explosion.png', 256, 256);
+    game.load.spritesheet('blackblast', 'assets/blackexplosion.png', 128, 128);
 
     game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
 
@@ -234,7 +237,9 @@ orionRescue.state1.prototype = {
         //VITÓRIA OU FASE 2
       }
 
-    } else {  }
+    } else {
+
+    }
 
 
 
@@ -282,8 +287,20 @@ function btnSA(btn, size) {
 };
 
 function collisionHandler(starship, rock) {
-  starship.kill();
+  var blackblast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blackblast');
+  blackblast.anchor.setTo(0.5, 0.5);
+  blackblast.scale.setTo(4);
+  blackblast.animations.add('b_explode', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ,18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37]);
+  blackblast.animations.play('b_explode', 70, false, true);
+  var blast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blast');
+  blast.anchor.setTo(0.5, 0.5);
+  blast.scale.setTo(2);
+  blast.animations.add('explode', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ,18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]);
+  blast.animations.play('explode', 80, false, true);
+  spaceship.kill();
   rock.kill();
+
+
 };
 
 function rockShower(pos) {
