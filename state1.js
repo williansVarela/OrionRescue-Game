@@ -1,4 +1,3 @@
-var bgColor = '#060014';
 var starryBG;
 
 var bgRocks;

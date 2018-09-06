@@ -1,8 +1,9 @@
-
+var orionRescue = {};
 
 orionRescue.mainmenu = function() {};
 orionRescue.mainmenu.prototype = {
   preload: function() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
     game.load.image('mainmenu', 'assets/UI/mainmenu.png');
   },
   create: function() {
