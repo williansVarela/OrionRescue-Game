@@ -13,6 +13,7 @@ orionRescue.load.prototype = {
     game.load.image('hextriade3', 'assets/UI/hextriade3.png');
     game.load.image('staticengine', 'assets/UI/staticengine.png');
     game.load.image('button', 'assets/UI/button.png');
+    game.load.image('btn', 'assets/UI/btn.png');
 
     // Game Loads --------------------------------------------------------------------
     game.load.image('spaceship', 'assets/spaceship.png');

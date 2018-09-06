@@ -4,6 +4,7 @@ var hextriade1;
 var hextriade2;
 var hextriade3;
 var button;
+var btnhitbox;
 
 orionRescue.mainmenu = function() {};
 orionRescue.mainmenu.prototype = {
@@ -31,6 +32,11 @@ orionRescue.mainmenu.prototype = {
 
     button = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'button');
     game.add.tween(button).to( { alpha: 0.8 }, 500, "Linear", true, 0, Number.MAX_VALUE, true);
+
+    btnhitbox = game.add.button(game.world.centerX, game.world.centerY, 'btn', stateChange);
+    btnhitbox.anchor.setTo(0.5, 0.5);
+    btnhitbox.scale.set(1.7);
+    btnhitbox.alpha = 0;
   },
   update: function() {
     stars1.tilePosition.y += .1;
@@ -42,3 +48,7 @@ orionRescue.mainmenu.prototype = {
     hextriade3.angle += -.1;
   }
 };
+
+function stateChange() {
+  game.state.start('state1');
+}
