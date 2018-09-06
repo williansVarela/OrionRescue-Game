@@ -1,7 +1,7 @@
 var gameRatio = window.innerWidth/window.innerHeight;
 var gameWidth = 1536;
 var gameHeight = 2048;
-
+  
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS);
 
 game.state.add('mainmenu', orionRescue.mainmenu);
