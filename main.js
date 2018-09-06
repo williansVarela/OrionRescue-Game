@@ -7,4 +7,4 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'home-screen', 
 game.state.add('state0', orionRescue.state0);
 game.state.add('state1', orionRescue.state1);
 game.state.add('state2', orionRescue.state2);
-game.state.start('state0');
+game.state.start('state1');

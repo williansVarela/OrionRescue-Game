@@ -314,9 +314,9 @@ function collisionHandler(starship, rock) {
   gameOverText.fill = grdGO;
 
   gameOverText.align = 'center';
-  gameOverText.setShadow(5, 5, 'rgba(131,0,8,0.8)', 5);
+  gameOverText.setShadow(5, 5, 'rgba(131, 0, 8, 0.8)', 5);
   gameOverText.alpha = 0;
-  game.add.tween(gameOverText).to( { alpha: 1 }, 2000, "Linear", true);
+  game.add.tween(gameOverText).to( { alpha: 1 }, 2500, "Linear", true);
 
   // Kill Units  --------------------------------------------------------------------
   spaceship.kill();
