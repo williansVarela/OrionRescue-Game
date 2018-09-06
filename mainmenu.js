@@ -1,5 +1,3 @@
-var orionRescue = {};
-
 var stars1;
 var stars2;
 var hextriade1;
@@ -9,17 +7,7 @@ var button;
 
 orionRescue.mainmenu = function() {};
 orionRescue.mainmenu.prototype = {
-  preload: function() {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.load.image('BG', 'assets/UI/BG.png');
-    game.load.image('stars1', 'assets/UI/stars1.png');
-    game.load.image('stars2', 'assets/UI/stars2.png');
-    game.load.image('hextriade1', 'assets/UI/hextriade1.png');
-    game.load.image('hextriade2', 'assets/UI/hextriade2.png');
-    game.load.image('hextriade3', 'assets/UI/hextriade3.png');
-    game.load.image('staticengine', 'assets/UI/staticengine.png');
-    game.load.image('button', 'assets/UI/button.png');
-  },
+  preload: function() {},
   create: function() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');

@@ -49,32 +49,6 @@ orionRescue.state1.prototype = {
   },
 
   preload: function() {
-    game.load.image('spaceship', 'assets/spaceship.png');
-    game.load.image('rock1', 'assets/asteroids/asteroid1.png');
-    game.load.image('rock2', 'assets/asteroids/asteroid2.png');
-
-    game.load.image('bgrock1', 'assets/asteroids/bg_asteroid01.png');
-    game.load.image('bgrock2', 'assets/asteroids/bg_asteroid02.png');
-    game.load.image('bgrock3', 'assets/asteroids/bg_asteroid03.png');
-    game.load.image('bgrock4', 'assets/asteroids/bg_asteroid04.png');
-    game.load.image('bgrock5', 'assets/asteroids/bg_asteroid05.png');
-    game.load.image('bgrock6', 'assets/asteroids/bg_asteroid06.png');
-    game.load.image('bgrock7', 'assets/asteroids/bg_asteroid07.png');
-    game.load.image('bgrock8', 'assets/asteroids/bg_asteroid08.png');
-
-    game.load.image('leftBtn', 'assets/lft-btn.png');
-    game.load.image('rightBtn', 'assets/rgt-btn.png');
-    game.load.image('starryBG', 'assets/starry_sky0.png');
-    game.load.image('planetBG', 'assets/planet_sky1.png');
-    game.load.image('bgGradient', 'assets/bg_gradient.png');
-    game.load.image('earth', 'assets/earth_.png');
-
-    game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
-    game.load.spritesheet('blast', 'assets/explosion.png', 256, 256);
-    game.load.spritesheet('blackblast', 'assets/blackexplosion.png', 128, 128);
-
-    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
-
   },
 /*-----------------------------------------------------------*/
   create: function() {
