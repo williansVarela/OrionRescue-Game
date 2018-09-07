@@ -1,4 +1,5 @@
-var starryBG;
+var starryBG1;
+var starryBG2;
 
 var bgRocks;
 var bgrock1;
@@ -58,8 +59,14 @@ orionRescue.state1.prototype = {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 
     // Starry and Planet Backgrounds --------------------------------------------------------------------
-    starryBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'starryBG');
+    game.add.tileSprite(0, 0, game.width, game.height, 'darkbg');
+    starryBG1 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'furtherstars');
+    starryBG2 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'closerstars');
     planetBG = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'planetBG');
+
+    starryBG1.alpha = 0.3;
+    game.add.tween(starryBG1).to( { alpha: 0.4 }, 100, "Linear", true, 0, Number.MAX_VALUE, true);
+    game.add.tween(starryBG2).to( { alpha: 0.7 }, 100, "Linear", true, 0, Number.MAX_VALUE, true);
 
     // Background Rocks --------------------------------------------------------------------
     var delay = 0;
@@ -98,7 +105,7 @@ orionRescue.state1.prototype = {
     starRain.start(false, 1600, 30, 0);
 
     // Background Gradient --------------------------------------------------------------------
-    game.add.tileSprite(0, 0, game.width, game.height, 'bgGradient');
+    game.add.tileSprite(0, 0, game.width, game.height, 'gradientbg');
 
     // Spaceship Set Up --------------------------------------------------------------------
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
@@ -177,10 +184,11 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   update: function() {
     // Starry and Planet Backgrounds Movement --------------------------------------------------------------------
-    starryBG.tilePosition.y += 1;
-    if(planetBG.tilePosition.y < 8990) {
+    starryBG1.tilePosition.y += 0.9;
+    starryBG2.tilePosition.y += 1;
+    /*if(planetBG.tilePosition.y < 8990) {
       planetBG.tilePosition.y += plntSpeed;
-    }
+    }*/
 
     // SpaceShip Movement --------------------------------------------------------------------
     if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
@@ -294,6 +302,10 @@ function collisionHandler(starship, rock) {
   // Kill Units  --------------------------------------------------------------------
   spaceship.kill();
   rock.kill();
+
+  setTimeout(function() {
+    game.state.start('mainmenu');
+  }, 3000)
 };
 
 function rockShower(pos) {

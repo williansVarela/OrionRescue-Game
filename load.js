@@ -45,9 +45,14 @@ orionRescue.load.prototype = {
     game.load.image('bgGradient', 'assets/bg_gradient.png');
     game.load.image('earth', 'assets/earth_.png');
 
-    game.load.spritesheet('rain', 'assets/rain.png', 20, 700);
-    game.load.spritesheet('blast', 'assets/explosion.png', 256, 256);
-    game.load.spritesheet('blackblast', 'assets/blackexplosion.png', 128, 128);
+    game.load.image('darkbg', 'assets/gameBG/darkbg.png');
+    game.load.image('gradientbg', 'assets/gameBG/gradientbg.png');
+    game.load.image('closerstars', 'assets/gameBG/closerstars.png');
+    game.load.image('furtherstars', 'assets/gameBG/furtherstars.png');
+
+    game.load.spritesheet('rain', 'assets/spritesheets/rain.png', 20, 700);
+    game.load.spritesheet('blast', 'assets/spritesheets/explosion.png', 256, 256);
+    game.load.spritesheet('blackblast', 'assets/spritesheets/blackexplosion.png', 128, 128);
 
     game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
 

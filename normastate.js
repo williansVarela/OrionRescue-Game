@@ -16,6 +16,10 @@ orionRescue.normastate.prototype = {
     normadisplay = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'normadisplay');
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'textbox');
 
+    var btn = game.add.button(gameWidth*0.88, gameHeight*0.83, 'rightBtn', toGame);
+    btn.anchor.setTo(0.5, 0.5);
+    btn.scale.set(0.3);
+
 
   },
   update: function() {
@@ -25,3 +29,7 @@ orionRescue.normastate.prototype = {
     normadisplay.tilePosition.x += 1;
   }
 };
+
+function toGame() {
+  game.state.start('state1');
+}

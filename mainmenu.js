@@ -45,12 +45,12 @@ orionRescue.mainmenu.prototype = {
     logo.anchor.setTo(0.5);
     game.add.tween(logo).to( { alpha: 0.9 }, 2500, "Linear", true, 0, Number.MAX_VALUE, true);
 
-    btnhitbox = game.add.button(game.world.centerX, game.world.centerY, 'btn', stateChange);
+    btnhitbox = game.add.button(game.world.centerX, game.world.centerY, 'btn', toNormastate);
     btnhitbox.anchor.setTo(0.5, 0.5);
     btnhitbox.scale.set(1.7);
     btnhitbox.alpha = 0;
 
-    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', stateChange);
+    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', toNormastate);
     manualbtn.anchor.setTo(0.5, 0.5);
 
   },
@@ -69,6 +69,6 @@ orionRescue.mainmenu.prototype = {
   }
 };
 
-function stateChange() {
-  game.state.start('state1');
+function toNormastate() {
+  game.state.start('normastate');
 }
