@@ -8,12 +8,20 @@ orionRescue.load.prototype = {
     game.load.image('BG', 'assets/UI/BG.png');
     game.load.image('stars1', 'assets/UI/stars1.png');
     game.load.image('stars2', 'assets/UI/stars2.png');
+    game.load.image('cloud1', 'assets/UI/cloud_1.png');
+    game.load.image('cloud2', 'assets/UI/cloud_2.png');
+    game.load.image('cloud3', 'assets/UI/cloud_3.png');
     game.load.image('hextriade1', 'assets/UI/hextriade1.png');
     game.load.image('hextriade2', 'assets/UI/hextriade2.png');
     game.load.image('hextriade3', 'assets/UI/hextriade3.png');
     game.load.image('staticengine', 'assets/UI/staticengine.png');
     game.load.image('button', 'assets/UI/button.png');
     game.load.image('btn', 'assets/UI/btn.png');
+    game.load.image('logo', 'assets/UI/gamelogo.png');
+
+    //Normastate
+    game.load.image('textbox', 'assets/UI/textbox.png');
+    game.load.image('normadisplay', 'assets/UI/normadisplay.png');
 
     // Game Loads --------------------------------------------------------------------
     game.load.image('spaceship', 'assets/spaceship.png');
