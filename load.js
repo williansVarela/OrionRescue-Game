@@ -18,6 +18,7 @@ orionRescue.load.prototype = {
     game.load.image('button', 'assets/UI/button.png');
     game.load.image('btn', 'assets/UI/btn.png');
     game.load.image('logo', 'assets/UI/gamelogo.png');
+    game.load.image('manual', 'assets/UI/manualbtn.png');
 
     //Normastate
     game.load.image('textbox', 'assets/UI/textbox.png');

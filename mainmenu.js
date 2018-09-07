@@ -49,6 +49,10 @@ orionRescue.mainmenu.prototype = {
     btnhitbox.anchor.setTo(0.5, 0.5);
     btnhitbox.scale.set(1.7);
     btnhitbox.alpha = 0;
+
+    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', stateChange);
+    manualbtn.anchor.setTo(0.5, 0.5);
+
   },
   update: function() {
     cloud1.tilePosition.x += .5;
