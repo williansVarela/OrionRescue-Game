@@ -1,5 +1,6 @@
 var normadisplay;
 var sentence;
+var typeColor = '#E0D7D7';
 var typeSpeed = 10;
 var btn;
 
@@ -11,7 +12,7 @@ var conversation = {
   text: [
     "Bem vindo novamente, mestre Orion.\nEstava ansiosa pelo seu retorno!\nVeio atualizar o banco de dados com suas novas descobertas?",
     "Parado aí!\nQuem é você?\nO mestre Orion não deixa ninguém usar o STARDEX!",
-    "Mas já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
+    "Se bem que já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
     "Pela Ursa Maior! Isso explica o porquê dele não ter entrado em contato comigo antes!",
     "Ainda não nos apresentamos. Prazer, sou chamada Norma, a assistente do Orion, o robô explorador mais incrível de Juno, construído pela mais habilidosa engenheira de Juno.\nE você, como se chama?",
     "Hmmm... " + playerName + "... Que nome lindo!",
@@ -19,8 +20,11 @@ var conversation = {
     "Muito bem! ................................................................... \nAnalisei a rota e existe um grupo de asteroides desde a localização atual da nave até este planeta. Você não poderá colidir com eles.",
     "Não temos tempo a perder, " + playerName + "!\nAssim que estiver pronto me diga! Vou colocar os comandos da nave a sua disposição!"
   ],
-  index: 0
+  index: 0,
+  answer: 'Siiiim!! Ele está no meu planeta e precisa\nsair daqui, mas como está sem seu braço,\nnão consegue trazer sua nave para cá.'
 };
+
+var answer;
 
 
 orionRescue.normastate = function() {};
@@ -39,7 +43,7 @@ orionRescue.normastate.prototype = {
 
     normadisplay = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'normadisplay');
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'textbox');
-    this.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, '#fff');
+    this.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, typeColor);
 
 
   },
@@ -69,11 +73,10 @@ orionRescue.normastate.prototype = {
         game.time.events.remove(loopText);
         if(conversation.index == 4 || conversation.index == 6) {
           var inputProperties = {
-            font: '60px Arial',
+            font: '48px Arial',
             fill: '#212121',
             fontWeight: 'bold',
             width: gameWidth*0.4,
-            height: gameHeight*0.04,
             padding: 8,
             borderWidth: 1,
             borderColor: '#000',
@@ -83,13 +86,31 @@ orionRescue.normastate.prototype = {
           if(conversation.index == 4) {
             inputProperties.placeHolder = 'Qual é o seu nome?';
           } else {
-            inputProperties.placeHolder = 'Qual a sua idade?';
+            inputProperties.placeHolder = 'Quantos anos você tem?';
           }
           input = game.add.inputField(gameWidth*0.1, gameHeight*0.8, inputProperties);
+        } else if(conversation.index == 2) {
+
+          btn = game.add.button(x, y + gameHeight*0.18, 'btn', convChange);
+          btn.scale.set(3.3, 0.6);
+          btn.alpha = 1;
+
+          answer = game.add.text(x, y + gameHeight*0.18, conversation.answer, {fontSize: fontSize + 'px', fill: '#E59797', font: font});
+          answer.alpha = 0;
+          game.add.tween(answer).to( { alpha: 1 }, 1500, "Linear", true);
+
+          setTimeout(function() {
+            game.add.tween(answer).to( { alpha: 0.6 }, 800, "Linear", true, 0, Number.MAX_VALUE, true);
+          }, 1500)
+
         }
-        btn = game.add.button(gameWidth*0.88, gameHeight*0.83, 'rightBtn', convChange);
-        btn.anchor.setTo(0.5, 0.5);
-        btn.scale.set(0.3);
+        if(conversation.index != 2) {
+          btn = game.add.button(gameWidth*0.88, gameHeight*0.83, 'rightBtn', convChange);
+          game.add.tween(btn).to( { alpha: 0.6 }, 800, "Linear", true, 0, Number.MAX_VALUE, true);
+          btn.anchor.setTo(0.5, 0.5);
+          btn.scale.set(0.3);
+
+        }
 
       }
       charIndex++;
@@ -99,7 +120,10 @@ orionRescue.normastate.prototype = {
 
 function convChange() {
   btn.kill();
-  if(conversation.index == 4 || conversation.index == 6) {
+  if(conversation.index == 2) {
+    answer.kill();
+  }
+  else if(conversation.index == 4 || conversation.index == 6) {
     if(conversation.index == 4) {
       playerName = input.value;
     } else {
@@ -114,7 +138,7 @@ function convChange() {
     conversation.text = [
       "Bem vindo novamente, mestre Orion.\nEstava ansiosa pelo seu retorno!\nVeio atualizar o banco de dados com suas novas descobertas?",
       "Parado aí!\nQuem é você?\nO mestre Orion não deixa ninguém usar o STARDEX!",
-      "Mas já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
+      "Se bem que já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
       "Pela Ursa Maior! Isso explica o porquê dele não ter entrado em contato comigo antes!",
       "Ainda não nos apresentamos. Prazer, sou chamada Norma, a assistente do Orion, o robô explorador mais incrível de Juno, construído pela mais habilidosa engenheira de Juno.\nE você, como se chama?",
       "Hmmm... " + playerName + "... Que nome lindo!",
@@ -122,12 +146,11 @@ function convChange() {
       "Muito bem! .................... (Pausa)...............\nAnalisei a rota e existe um grupo de asteroides desde a localização atual da nave até este planeta. Você não poderá colidir com eles.",
       "Não temos tempo a perder, " + playerName + "!\nAssim que estiver pronto me diga! Vou colocar os comandos da nave a sua disposição!"
     ];
-
   }
   if(conversation.index < conversation.text.length - 1) {
     conversation.index++;
     sentence.text = '';
-    orionRescue.normastate.prototype.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, '#fff');
+    orionRescue.normastate.prototype.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, typeColor);
   } else {
     conversation.index = 0;
     game.state.start('state1');
