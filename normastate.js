@@ -74,12 +74,14 @@ orionRescue.normastate.prototype = {
         if(conversation.index == 4 || conversation.index == 6) {
           var inputProperties = {
             font: '48px Arial',
-            fill: '#212121',
+            fill: '#E95678',
+            backgroundColor: '#E0D7D7',
             fontWeight: 'bold',
             width: gameWidth*0.4,
             padding: 8,
-            borderWidth: 1,
-            borderColor: '#000',
+            borderWidth: 4,
+            borderColor: '#E0D7D7',
+            placeHolderColor: '#FFF',
             borderRadius: 6,
             type: PhaserInput.InputType.text
           };
@@ -93,7 +95,7 @@ orionRescue.normastate.prototype = {
 
           btn = game.add.button(x, y + gameHeight*0.18, 'btn', convChange);
           btn.scale.set(3.3, 0.6);
-          btn.alpha = 1;
+          btn.alpha = 0;
 
           answer = game.add.text(x, y + gameHeight*0.18, conversation.answer, {fontSize: fontSize + 'px', fill: '#E59797', font: font});
           answer.alpha = 0;
