@@ -38,6 +38,7 @@ var grd;
 
 var starRain;
 
+var gameWin = false;
 
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
@@ -191,13 +192,15 @@ orionRescue.state1.prototype = {
     }*/
 
     // SpaceShip Movement --------------------------------------------------------------------
-    if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
-      spaceship.body.acceleration.x = speed;
-    } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
-      spaceship.body.acceleration.x = -speed;
-    } else if(rgtBtnPressed == false && lftBtnPressed == false) {
-      spaceship.body.acceleration.x = 0;
-    }
+    if(gameWin == false){
+      if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
+        spaceship.body.acceleration.x = speed;
+      } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
+        spaceship.body.acceleration.x = -speed;
+      } else if(rgtBtnPressed == false && lftBtnPressed == false) {
+        spaceship.body.acceleration.x = 0;
+      }
+    };
 
     if(spaceship.alive) {
       // Collision --------------------------------------------------------------------
@@ -207,7 +210,7 @@ orionRescue.state1.prototype = {
       scoreText.text = score;
 
       // RockShower Call --------------------------------------------------------------------
-      if(game.time.now > rockTimer) {
+      if(game.time.now > rockTimer && gameWin == false) {
         fallPttrns = [fallRandom(100, 300), fallRandom(400, 600), fallRandom(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
@@ -216,14 +219,25 @@ orionRescue.state1.prototype = {
       // Victory Checkup --------------------------------------------------------------------
       if(disBarPct < 0) {
         //VITÓRIA OU FASE 2
-      }
+        speed = 0;
+        spaceship.body.acceleration.x = 0
+        rgtBtn.kill();
+        lftBtn.kill();
+        starRain.on = false;
+        gameWin = true;
+        spaceship.position.x = Math.round(spaceship.position.x)
+        if(rock.alive == false){
+          if(spaceship.position.x > game.world.centerX){
+            spaceship.position.x--;
+          }else{
+            spaceship.position.x++;
+          }
+        }
+      };
 
     } else {
 
     }
-
-
-
 
   },
 
@@ -244,7 +258,7 @@ orionRescue.state1.prototype = {
   },
 
   everySecond: function() {
-    if(spaceship.alive) {
+    if(spaceship.alive && gameWin == false) {
       disBarPct -= 1/(800/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
