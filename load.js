@@ -48,7 +48,8 @@ orionRescue.load.prototype = {
     game.load.image('starryBG', 'assets/starry_sky0.png');
     game.load.image('planetBG', 'assets/planet_sky1.png');
     game.load.image('bgGradient', 'assets/bg_gradient.png');
-    game.load.image('earth', 'assets/earth_.png');
+    game.load.image('earthIcon', 'assets/earth_.png');
+    game.load.image('earthWin', 'assets/terra.png');
 
     game.load.image('darkbg', 'assets/gameBG/darkbg.png');
     game.load.image('gradientbg', 'assets/gameBG/gradientbg.png');
