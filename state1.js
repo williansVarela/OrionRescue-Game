@@ -353,14 +353,14 @@ function collisionHandler(starship, rock) {
 
     setTimeout(function() {
       game.state.start('state1');
+      score = 0;
+      disBarPct = 100;
+      fallSpeed = 800;
+      rocksScale = 1;
+      rocksInterval = 2000;
     }, 3000)
 
     //Reset game
-    score = 0;
-    disBarPct = 100;
-    fallSpeed = 800;
-    rocksScale = 1;
-    rocksInterval = 2000;
   }
 };
 
