@@ -12,6 +12,7 @@ var bgrock7;
 var bgrock8;
 
 var spaceship;
+var flying;
 
 var rocks;
 var rocksScale = 1;
@@ -110,6 +111,8 @@ orionRescue.state1.prototype = {
 
     // Spaceship Set Up --------------------------------------------------------------------
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
+    flying = spaceship.animations.add('flying');
+    spaceship.animations.play('flying', 24, true);
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.drag.x = 5500;
