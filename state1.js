@@ -75,15 +75,16 @@ orionRescue.state1.prototype = {
 
     // Background Rocks --------------------------------------------------------------------
     var delay = 0;
-    var bgrockArr = ['bgrock1', 'bgrock2', 'bgrock3', 'bgrock4', 'bgrock5', 'bgrock6', 'bgrock7', 'bgrock8'];
+    var bgrockArr = ['bala_amarela', 'bala_verde', 'bala_vermelha', 'bolo', 'chocolate', 'gummy_bear_amarelo', 'gummy_bear_azul', 'gummy_bear_verde', 'gummy_bear_vermelho', 'marshmallow_azul', 'marshmallow_rosa', 'pudim_rosa', 'pudim_verde'];
 
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 30; i++) {
       var rockIndex = Math.floor(Math.random() * bgrockArr.length);
       bgRocks = game.add.sprite(game.world.randomX, -gameHeight*0.2, bgrockArr[rockIndex]);
 
+      bgRocks.alpha = game.rnd.realInRange(0.3, 0.4);
       bgRocks.anchor.setTo(0.5, 1);
       bgRocks.angle = Math.floor(Math.random() * 360) -180;
-      bgRocks.scale.set(game.rnd.realInRange(0.5, 1));
+      bgRocks.scale.set(game.rnd.realInRange(0.1, 0.4));
 
       var speed = game.rnd.between(fallSpeed*8, fallSpeed*10);
 
@@ -126,7 +127,7 @@ orionRescue.state1.prototype = {
     rocks = game.add.group();
     rocks.enableBody = true;
     rocks.physicsBodyType = Phaser.Physics.ARCADE;
-    rocks.createMultiple(30, ['rock1', 'rock2']);
+    rocks.createMultiple(30, ['bala_amarela', 'bala_verde', 'bala_vermelha', 'bolo', 'chocolate', 'marshmallow_azul', 'marshmallow_rosa', 'pudim_rosa', 'pudim_verde']);
     rocks.setAll('anchor.x', 0.5);
     rocks.setAll('anchor.y', 1);
     rocks.setAll('outOfBoundsKill', true);

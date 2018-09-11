@@ -51,6 +51,20 @@ orionRescue.load.prototype = {
     game.load.image('earthIcon', 'assets/earth_.png');
     game.load.image('earthWin', 'assets/terra.png');
 
+    game.load.image('bala_amarela', 'assets/asteroids/bala_amarela.png');
+    game.load.image('bala_verde', 'assets/asteroids/bala_verde.png');
+    game.load.image('bala_vermelha', 'assets/asteroids/bala_vermelha.png');
+    game.load.image('bolo', 'assets/asteroids/bolo.png');
+    game.load.image('chocolate', 'assets/asteroids/chocolate.png');
+    game.load.image('gummy_bear_amarelo', 'assets/asteroids/gummy_bear_amarelo.png');
+    game.load.image('gummy_bear_azul', 'assets/asteroids/gummy_bear_azul.png');
+    game.load.image('gummy_bear_verde', 'assets/asteroids/gummy_bear_verde.png');
+    game.load.image('gummy_bear_vermelho', 'assets/asteroids/gummy_bear_vermelho.png');
+    game.load.image('marshmallow_azul', 'assets/asteroids/marshmallow_azul.png');
+    game.load.image('marshmallow_rosa', 'assets/asteroids/marshmallow_rosa.png');
+    game.load.image('pudim_rosa', 'assets/asteroids/pudim_rosa.png');
+    game.load.image('pudim_verde', 'assets/asteroids/pudim_verde.png');
+
     game.load.image('darkbg', 'assets/gameBG/darkbg.png');
     game.load.image('gradientbg', 'assets/gameBG/gradientbg.png');
     game.load.image('closerstars', 'assets/gameBG/closerstars.png');
