@@ -23,6 +23,11 @@ orionRescue.load.prototype = {
     //Normastate
     game.load.image('textbox', 'assets/UI/textbox.png');
     game.load.image('normadisplay', 'assets/UI/normadisplay.png');
+    game.load.image('normahappy1', 'assets/UI/normahappy1.png');
+    game.load.image('normahappy2', 'assets/UI/normahappy2.png');
+    game.load.image('normasad', 'assets/UI/normasad.png');
+    game.load.image('normaangry', 'assets/UI/normaangry.png');
+    game.load.image('normasurprised', 'assets/UI/normasurprised.png');
 
     // Game Loads --------------------------------------------------------------------
     //game.load.image('spaceship', 'assets/spaceship.png');
