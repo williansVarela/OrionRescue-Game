@@ -19,6 +19,12 @@ var normaMood = {
   index: 1
 }; // 0 - happy1, 1 - happy2, 2 - sad, 3 - angry, 4 - surprised
 
+var inputSet = {
+  name: 0,
+  age: 0
+};
+
+
 
 textUpdate()
 
@@ -27,7 +33,9 @@ orionRescue.normastate.prototype = {
   preload: function() {},
   create: function() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.add.plugin(PhaserInput.Plugin);
+    Phaser.Device.whenReady(function () {
+      game.plugins.add(PhaserInput.Plugin);
+    });
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');
     stars1 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars1');
     stars2 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars2');
@@ -47,6 +55,12 @@ orionRescue.normastate.prototype = {
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'textbox');
     this.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, typeColor);
 
+    PhaserInput.onKeyboardOpen.add(function () {
+        console.error("keyboard open", PhaserInput.KeyboardOpen)
+    });
+    PhaserInput.onKeyboardClose.add(function () {
+        console.error("keyboard close", PhaserInput.KeyboardOpen)
+    });
 
   },
   update: function() {
@@ -110,26 +124,12 @@ orionRescue.normastate.prototype = {
       }
       if (charIndex >= text.length - 1) {
         game.time.events.remove(loopText);
-        if(conversation.index == 4 || conversation.index == 6) {
-          var inputProperties = {
-            font: '48px Arial',
-            fill: '#E95678',
-            backgroundColor: '#E0D7D7',
-            fontWeight: 'bold',
-            width: gameWidth*0.4,
-            padding: 8,
-            borderWidth: 4,
-            borderColor: '#E0D7D7',
-            placeHolderColor: '#FFF',
-            borderRadius: 6,
-            type: PhaserInput.InputType.text
-          };
-          if(conversation.index == 4) {
-            inputProperties.placeHolder = 'Qual é o seu nome?';
-          } else {
-            inputProperties.placeHolder = 'Quantos anos você tem?';
-          }
-          input = game.add.inputField(gameWidth*0.1, gameHeight*0.8, inputProperties);
+        if(conversation.index == 4) {
+          inputCreator();
+          inputSet.name = 1;
+        } else if(conversation.index == 6) {
+          inputCreator();
+          inputSet.age = 1;
         } else if(conversation.index == 2) {
 
           btn = game.add.button(x, y + gameHeight*0.18, 'btn', convChange);
@@ -200,4 +200,32 @@ function textUpdate() {
     "Muito bem! ................................... Analisei a rota e existe um grupo de asteroides desde a localização atual da nave até este planeta. Você não poderá colidir com eles.",
     "Não temos tempo a perder, " + playerName + "!\nAssim que estiver pronto me diga! Vou colocar os comandos da nave a sua disposição!"
   ];
+}
+
+function inputCreator() {
+  var inputProperties = {
+    font: '48px Arial',
+    fill: '#E95678',
+    backgroundColor: '#E0D7D7',
+    fontWeight: 'bold',
+    width: gameWidth*0.4,
+    padding: 8,
+    borderWidth: 4,
+    borderColor: '#E0D7D7',
+    placeHolderColor: '#FFF',
+    borderRadius: 6,
+    type: PhaserInput.InputType.text,
+    zoom: true
+  };
+  if(inputSet.name == 0 && conversation.index == 4) {
+    inputProperties.placeHolder = 'Qual é o seu nome?';
+    input = game.add.inputField(gameWidth*0.1, gameHeight*/*0.8*/0.2, inputProperties);
+    input.focusOutOnEnter = false;
+  } else if(inputSet.age == 0 && conversation.index == 6) {
+    inputProperties.placeHolder = 'Quantos anos você tem?';
+    input = game.add.inputField(gameWidth*0.1, gameHeight*/*0.8*/0.2, inputProperties);
+    input.focusOutOnEnter = false;
+  }
+
+
 }
