@@ -193,9 +193,9 @@ orionRescue.state1.prototype = {
     // Starry and Planet Backgrounds Movement --------------------------------------------------------------------
     starryBG1.tilePosition.y += 0.9;
     starryBG2.tilePosition.y += 1;
-    /*if(planetBG.tilePosition.y < 8990) {
+    if(planetBG.tilePosition.y < 8990) {
       planetBG.tilePosition.y += plntSpeed;
-    }*/
+    }
 
     // SpaceShip Movement --------------------------------------------------------------------
     if(gameWin == false){
