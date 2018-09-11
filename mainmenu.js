@@ -50,7 +50,9 @@ orionRescue.mainmenu.prototype = {
     btnhitbox.scale.set(1.7);
     btnhitbox.alpha = 0;
 
-    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', toNormastate);
+    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', function() {
+        window.location.href = "manual.html";  
+      });
     manualbtn.anchor.setTo(0.5, 0.5);
 
   },
