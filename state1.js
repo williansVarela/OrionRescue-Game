@@ -318,8 +318,12 @@ function collisionHandler(starship, rock) {
   rock.kill();
 
   setTimeout(function() {
-    game.state.start('mainmenu');
+    game.state.start('state1');
   }, 3000)
+
+  //Reset game
+  score = 0
+  disBarPct = 100
 };
 
 function rockShower(pos) {
