@@ -30,7 +30,7 @@ orionRescue.load.prototype = {
     game.load.image('normasurprised', 'assets/UI/normasurprised.png');
 
     // Game Loads --------------------------------------------------------------------
-    //game.load.image('spaceship', 'assets/spaceship.png');
+    game.load.image('spaceship', 'assets/spaceship.png');
     game.load.image('rock1', 'assets/asteroids/asteroid1.png');
     game.load.image('rock2', 'assets/asteroids/asteroid2.png');
 
@@ -73,7 +73,7 @@ orionRescue.load.prototype = {
     game.load.spritesheet('rain', 'assets/spritesheets/rain.png', 20, 700);
     game.load.spritesheet('blast', 'assets/spritesheets/explosion.png', 256, 256);
     game.load.spritesheet('blackblast', 'assets/spritesheets/blackexplosion.png', 128, 128);
-    game.load.spritesheet('spaceship', 'assets/spritesheets/spaceship.png', 128, 325);
+    game.load.spritesheet('fire', 'assets/spritesheets/fire.png', 380, 355);
 
     game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
 
