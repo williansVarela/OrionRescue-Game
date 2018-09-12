@@ -10,6 +10,7 @@ var bgrock5;
 var bgrock6;
 var bgrock7;
 var bgrock8;
+var bgfadeaway;
 
 var spaceship;
 var fire;
@@ -199,6 +200,9 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputDown.add(this.movRight, rgtBtn);
     rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
 
+    var fadeawaystart = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
+    fadeawaystart.alpha = 0.8;
+    game.add.tween(fadeawaystart).to( { alpha: 0 }, 3000, "Linear", true);
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -272,8 +276,13 @@ orionRescue.state1.prototype = {
 
         setTimeout(function() {
           earth.pause();
+          // Fadeaway background endgame
+          fadeawaybg = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
+          fadeawaybg.alpha = 0
+          fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
+          setTimeout(function() {game.state.start('mainmenu')}, 8000);
         }, 2500);
-
+        
         var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
 
         winText.anchor.setTo(0.5);
