@@ -205,6 +205,9 @@ orionRescue.state1.prototype = {
     // Starry and Planet Backgrounds Movement --------------------------------------------------------------------
     starryBG1.tilePosition.y += 0.9;
     starryBG2.tilePosition.y += 1;
+    
+    fire.position.x = spaceship.position.x;
+
     if(planetBG.tilePosition.y < 8990) {
       planetBG.tilePosition.y += plntSpeed;
     }
@@ -216,6 +219,7 @@ orionRescue.state1.prototype = {
         fire.body.acceleration.x = speed;
       } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
         spaceship.body.acceleration.x = -speed;
+        fire.body.acceleration.x = -speed;
       } else if(!rgtBtnPressed && !lftBtnPressed) {
         spaceship.body.acceleration.x = 0;
         fire.body.acceleration.x = 0;
@@ -238,19 +242,22 @@ orionRescue.state1.prototype = {
 
       // Victory Checkup --------------------------------------------------------------------
       if(disBarPct < 0) {
-        //VITÓRIA OU FASE 2
         speed = 0;
-        spaceship.body.acceleration.x = 0
+        spaceship.body.acceleration.x = 0;
+        fire.body.acceleration.x = 0;
         rgtBtn.kill();
         lftBtn.kill();
         starRain.on = false;
         gameWin = true;
-        spaceship.position.x = Math.round(spaceship.position.x)
+        spaceship.position.x = Math.round(spaceship.position.x);
+        fire.position.x = Math.round(fire.position.x);
         if(!rock.alive){
           if(spaceship.position.x > game.world.centerX){
             spaceship.position.x--;
+            fire.position.x--;
           } else {
             spaceship.position.x++;
+            fire.position.x++;
           }
         }
 
@@ -272,7 +279,7 @@ orionRescue.state1.prototype = {
         winText.anchor.setTo(0.5);
 
         winText.font = 'Arial';
-        winText.fontSize = 180;
+        winText.fontSize = 160;
 
         var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
         grdGO.addColorStop(0, '#EDECF1');
@@ -305,7 +312,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 1/(800/fallSpeed);
+      disBarPct -= 25;
       this.distanceBar.setPercent(disBarPct);
       score++;
     }

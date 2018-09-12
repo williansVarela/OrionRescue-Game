@@ -30,6 +30,7 @@ orionRescue.load.prototype = {
     game.load.image('normasurprised', 'assets/UI/normasurprised.png');
 
     // Game Loads --------------------------------------------------------------------
+    game.load.image('spaceship', 'assets/spaceship.png');
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
