@@ -199,12 +199,12 @@ orionRescue.state1.prototype = {
     }
 
     // SpaceShip Movement --------------------------------------------------------------------
-    if(gameWin == false){
+    if(!gameWin){
       if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
         spaceship.body.acceleration.x = speed;
       } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
         spaceship.body.acceleration.x = -speed;
-      } else if(rgtBtnPressed == false && lftBtnPressed == false) {
+      } else if(!rgtBtnPressed && !lftBtnPressed) {
         spaceship.body.acceleration.x = 0;
       }
     };
@@ -217,7 +217,7 @@ orionRescue.state1.prototype = {
       scoreText.text = score;
 
       // RockShower Call --------------------------------------------------------------------
-      if(game.time.now > rockTimer && gameWin == false) {
+      if(game.time.now > rockTimer && !gameWin) {
         fallPttrns = [fallRandom(100, 300), fallRandom(400, 600), fallRandom(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
@@ -233,7 +233,7 @@ orionRescue.state1.prototype = {
         starRain.on = false;
         gameWin = true;
         spaceship.position.x = Math.round(spaceship.position.x)
-        if(rock.alive == false){
+        if(!rock.alive){
           if(spaceship.position.x > game.world.centerX){
             spaceship.position.x--;
           } else {
@@ -243,19 +243,23 @@ orionRescue.state1.prototype = {
 
       };
 
-      if(gameWin == true && earthSent == false) {
+      if(gameWin == true && !earthSent && spaceship.position.x == game.world.centerX) {
         earthSent = true;
         winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
         winSprite.anchor.setTo(0.5, 1);
         winSprite.scale.setTo(4);
-        game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
+        earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
 
-        var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você Salvou\nOrion e Norma!');
+        setTimeout(function() {
+          earth.pause();
+        }, 2500);
+
+        var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
 
         winText.anchor.setTo(0.5);
 
-        winText.font = 'Revalia';
-        winText.fontSize = 190;
+        winText.font = 'Arial';
+        winText.fontSize = 180;
 
         var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
         grdGO.addColorStop(0, '#EDECF1');
@@ -266,11 +270,6 @@ orionRescue.state1.prototype = {
         winText.setShadow(5, 5, 'rgba(131, 0, 8, 0.8)', 5);
         winText.alpha = 0;
         game.add.tween(winText).to( { alpha: 1 }, 2500, "Linear", true);
-
-        // Kill Units  --------------------------------------------------------------------
-        setTimeout(function() {
-          spaceship.kill();
-        }, 10000);
       }
     }
   },
@@ -292,7 +291,7 @@ orionRescue.state1.prototype = {
   },
 
   everySecond: function() {
-    if(spaceship.alive && gameWin == false) {
+    if(spaceship.alive && !gameWin) {
       disBarPct -= 1/(800/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
@@ -302,7 +301,7 @@ orionRescue.state1.prototype = {
   every5Seconds: function() {
     fallSpeed += 25;
     if(rocksScale < 1.5) {
-      rocksScale += 0.03;
+      rocksScale += 0.05;
     }
     if(rocksInterval > 1500)
     rocksInterval -= 50;
@@ -316,7 +315,7 @@ function btnSA(btn, size) {
 };
 
 function collisionHandler(starship, rock) {
-  if(gameWin == false) {
+  if(!gameWin) {
     // Explosion Animations --------------------------------------------------------------------
     var blackblast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blackblast');
     blackblast.anchor.setTo(0.5, 0.5);

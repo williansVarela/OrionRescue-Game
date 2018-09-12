@@ -191,12 +191,12 @@ function convChange() {
 function textUpdate() {
   conversation.text = [
     "Bem vindo novamente, mestre Orion.\nEstava ansiosa pelo seu retorno!\nVeio atualizar o banco de dados com suas novas descobertas?",
-    "Parado aí!\nQuem é você?\nO mestre Orion não deixa ninguém usar o STARDEX!",
+    "Parado aí!\nQuem é você?\nO mestre Orion não deixa ninguém usar a STARDEX!",
     "Se bem que já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
     "Pela Ursa Maior! Isso explica o porquê dele não ter entrado em contato comigo antes!",
-    "Ainda não nos apresentamos. Prazer, sou chamada Norma, a assistente do Orion, o robô explorador mais incrível de Juno, construído pela mais habilidosa engenheira de Juno.\nE você, como se chama?",
+    "Ainda não nos apresentamos. Prazer, me chamo Norma, sou a assistente do Orion, o robô explorador mais incrível de Juno, construído pela mais habilidosa engenheira de Juno, a princesa Carina!\nE você, como se chama?",
     "Hmmm... " + playerName + "... Que nome lindo!",
-    playerName + ", eu preciso que você ajude o Orion e eu. Preciso que você traga a nossa nave até o seu planeta urgentemente! Só que antes, preciso confirmar um detalhe... A princesa Carina só permite que crianças controlem a nave construída por ela! Quantos anos você tem?",
+    playerName + ", preciso que você ajude o mestre Orion. Preciso que você traga a nossa nave até o seu planeta urgentemente! Só que antes, preciso confirmar um detalhe... A princesa Carina só permite que crianças controlem a nave construída por ela! Quantos anos você tem?",
     "Muito bem! ................................... Analisei a rota e existe um grupo de asteroides desde a localização atual da nave até este planeta. Você não poderá colidir com eles.",
     "Não temos tempo a perder, " + playerName + "!\nAssim que estiver pronto me diga! Vou colocar os comandos da nave a sua disposição!"
   ];
