@@ -312,7 +312,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 25;
+      disBarPct -= 1/(800/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
