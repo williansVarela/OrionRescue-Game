@@ -12,6 +12,7 @@ var bgrock7;
 var bgrock8;
 
 var spaceship;
+var fire;
 var flying;
 
 var rocks;
@@ -114,14 +115,24 @@ orionRescue.state1.prototype = {
     game.add.tileSprite(0, 0, game.width, game.height, 'gradientbg');
 
     // Spaceship Set Up --------------------------------------------------------------------
+
+    fire = game.add.sprite(game.world.centerX, gameHeight*0.835, 'fire');
+    game.physics.enable(fire, Phaser.Physics.ARCADE);
+    fire.body.drag.x = 5500;
+    fire.body.maxVelocity.x = 2000; //Set max velocity for spaceship
+    fire.body.collideWorldBounds = true;
+    fire.anchor.setTo(0.5, 0);
+    fire.scale.setTo(0.31578947368421052631578947368421);
+    fire.animations.add('flying', [0, 1, 2, 3, 4, 5, 6, 7]);
+    fire.animations.play('flying', 24, true);
+
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
-    flying = spaceship.animations.add('flying');
-    spaceship.animations.play('flying', 24, true);
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.drag.x = 5500;
     spaceship.body.maxVelocity.x = 2000; //Set max velocity for spaceship
     spaceship.body.collideWorldBounds = true;
+
 
     // Red Asteroids Set Up --------------------------------------------------------------------
     rocks = game.add.group();
@@ -202,10 +213,12 @@ orionRescue.state1.prototype = {
     if(!gameWin){
       if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
         spaceship.body.acceleration.x = speed;
+        fire.body.acceleration.x = speed;
       } else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || lftBtnPressed == true) {
         spaceship.body.acceleration.x = -speed;
       } else if(!rgtBtnPressed && !lftBtnPressed) {
         spaceship.body.acceleration.x = 0;
+        fire.body.acceleration.x = 0;
       }
     };
 
@@ -350,6 +363,7 @@ function collisionHandler(starship, rock) {
     // Kill Units  --------------------------------------------------------------------
     spaceship.kill();
     rock.kill();
+    fire.kill();
 
     setTimeout(function() {
       game.state.start('state1');
