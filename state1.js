@@ -325,11 +325,12 @@ orionRescue.state1.prototype = {
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
+    console.log(rocksScale);
   },
 
   every5Seconds: function() {
     fallSpeed += 25;
-    if(rocksScale < 1.5) {
+    if(rocksScale < 1.8) {
       rocksScale += 0.05;
     }
     if(rocksInterval > 1500){
@@ -345,7 +346,7 @@ orionRescue.state1.prototype = {
     }
     if(score == 60){
       rocksScale = 5;
-      setTimeout(function() {rocksScale = 1.5}, 4000);
+      setTimeout(function() {rocksScale = 1.6}, 3000);
     }
   }
 
