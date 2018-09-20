@@ -25,7 +25,7 @@ var lftBtnPressed = false;
 var rgtBtn;
 var rgtBtnPressed = false;
 
-var speed = 3000;
+var speed = 3500;
 var rockTimer = 0;
 var fallPttrns;
 var fallSpeed = 800;
@@ -131,7 +131,7 @@ orionRescue.state1.prototype = {
     spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.drag.x = 5500;
-    spaceship.body.maxVelocity.x = 2000; //Set max velocity for spaceship
+    spaceship.body.maxVelocity.x = 2500; //Set max velocity for spaceship
     spaceship.body.collideWorldBounds = true;
 
 
