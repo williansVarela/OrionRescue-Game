@@ -28,7 +28,7 @@ var rgtBtnPressed = false;
 var speed = 3500;
 var rockTimer = 0;
 var fallPttrns;
-var fallSpeed = 800;
+var fallSpeed = 1000;
 
 var earthIcon;
 var disBarPct = 100;
@@ -104,7 +104,7 @@ orionRescue.state1.prototype = {
     starRain.minParticleScale = 0.1;
     starRain.maxParticleScale = 0.4;
 
-    starRain.setYSpeed(3000, 5000);
+    starRain.setYSpeed(4500, 6000);
     starRain.setXSpeed(-5, 5);
 
     starRain.minRotation = 0;
@@ -321,7 +321,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 1/(800/fallSpeed);
+      disBarPct -= 1/(1000/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
@@ -329,7 +329,7 @@ orionRescue.state1.prototype = {
   },
 
   every5Seconds: function() {
-    fallSpeed += 25;
+    fallSpeed += 50;
     if(rocksScale < 1.8) {
       rocksScale += 0.05;
     }
@@ -399,7 +399,7 @@ function collisionHandler(starship, rock) {
       game.state.start('state1');
       score = 0;
       disBarPct = 100;
-      fallSpeed = 800;
+      fallSpeed = 1000;
       rocksScale = 1;
       rocksInterval = 2000;
     }, 3000)
