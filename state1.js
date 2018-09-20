@@ -256,6 +256,7 @@ orionRescue.state1.prototype = {
         gameWin = true;
         spaceship.position.x = Math.round(spaceship.position.x);
         fire.position.x = Math.round(fire.position.x);
+
         if(!rock.alive){
           if(spaceship.position.x > game.world.centerX){
             spaceship.position.x--;
@@ -264,43 +265,56 @@ orionRescue.state1.prototype = {
             spaceship.position.x++;
             fire.position.x++;
           }
-        }
+        };
 
+        if(gameWin == true && !earthSent && spaceship.position.x == game.world.centerX) {
+          earthSent = true;
+          winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
+          winSprite.anchor.setTo(0.5, 1);
+          winSprite.scale.setTo(4);
+          earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
+  
+          setTimeout(function() {
+            earth.pause();
+            // Fadeaway background endgame
+            fadeawaybg = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
+            fadeawaybg.alpha = 0;
+            fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
+            setTimeout(function() { //reset game
+              disBarPct = 100;
+              gameWin = false;
+              earthSent = false;
+              starRain.on = true;
+              score = 0;
+              fallSpeed = 1000;
+              rocksScale = 1.5;
+              spaceship.position.x == game.world.centerX
+              game.state.restart()
+              rgtBtn.reset(gameWidth * 0.9, gameHeight * 0.9);
+              lftBtn.reset(gameWidth * 0.1, gameHeight * 0.9);
+              game.state.start('mainmenu');
+            }, 8000);
+          }, 2500);
+          
+          var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
+  
+          winText.anchor.setTo(0.5);
+  
+          winText.font = 'Arial';
+          winText.fontSize = 160;
+  
+          var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
+          grdGO.addColorStop(0, '#EDECF1');
+          grdGO.addColorStop(1, '#C9CACE');
+          winText.fill = grdGO;
+  
+          winText.align = 'center';
+          winText.setShadow(5, 5, 'rgba(131, 0, 8, 0.8)', 5);
+          winText.alpha = 0;
+          game.add.tween(winText).to( { alpha: 1 }, 2500, "Linear", true);
+        };
       };
 
-      if(gameWin == true && !earthSent && spaceship.position.x == game.world.centerX) {
-        earthSent = true;
-        winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
-        winSprite.anchor.setTo(0.5, 1);
-        winSprite.scale.setTo(4);
-        earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
-
-        setTimeout(function() {
-          earth.pause();
-          // Fadeaway background endgame
-          fadeawaybg = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
-          fadeawaybg.alpha = 0
-          fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
-          setTimeout(function() {game.state.start('mainmenu')}, 8000);
-        }, 2500);
-        
-        var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
-
-        winText.anchor.setTo(0.5);
-
-        winText.font = 'Arial';
-        winText.fontSize = 160;
-
-        var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
-        grdGO.addColorStop(0, '#EDECF1');
-        grdGO.addColorStop(1, '#C9CACE');
-        winText.fill = grdGO;
-
-        winText.align = 'center';
-        winText.setShadow(5, 5, 'rgba(131, 0, 8, 0.8)', 5);
-        winText.alpha = 0;
-        game.add.tween(winText).to( { alpha: 1 }, 2500, "Linear", true);
-      }
     }
   },
 
@@ -326,7 +340,6 @@ orionRescue.state1.prototype = {
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
-    console.log(rocksScale);
   },
 
   every5Seconds: function() {
