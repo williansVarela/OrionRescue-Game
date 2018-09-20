@@ -26,6 +26,8 @@ orionRescue.normastate = function() {};
 orionRescue.normastate.prototype = {
   preload: function() {},
   create: function() {
+    menuMusic.fadeOut(2000); //stop main menu audio
+
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.add.plugin(PhaserInput.Plugin);
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');

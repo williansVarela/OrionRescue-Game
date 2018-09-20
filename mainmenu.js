@@ -10,10 +10,16 @@ var hextriade3;
 var button;
 var btnhitbox;
 
+var menuMusic;
+
 orionRescue.mainmenu = function() {};
 orionRescue.mainmenu.prototype = {
   preload: function() {},
   create: function() {
+    //Main Menu Theme audio
+    menuMusic = game.add.audio('maintheme');
+    menuMusic.play();
+
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');
     stars1 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars1');

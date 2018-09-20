@@ -20,6 +20,8 @@ orionRescue.load.prototype = {
     game.load.image('logo', 'assets/UI/gamelogo.png');
     game.load.image('manual', 'assets/UI/manualbtn.png');
 
+    game.load.audio('maintheme', ['assets/audio/Main_Title_Theme.mp3', 'assets/audio/Main_Title_Theme.ogg']);
+
     //Normastate
     game.load.image('textbox', 'assets/UI/textbox.png');
     game.load.image('normadisplay', 'assets/UI/normadisplay.png');
