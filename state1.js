@@ -17,7 +17,7 @@ var fire;
 var flying;
 
 var rocks;
-var rocksScale = 1;
+var rocksScale = 1.5;
 var rocksInterval = 2000;
 
 var lftBtn;
@@ -330,7 +330,7 @@ orionRescue.state1.prototype = {
 
   every5Seconds: function() {
     fallSpeed += 50;
-    if(rocksScale < 1.8) {
+    if(rocksScale < 3) {
       rocksScale += 0.05;
     }
     if(rocksInterval > 1500){
@@ -338,15 +338,15 @@ orionRescue.state1.prototype = {
     }
     if(score == 20){
       rocksScale = 3;
-      setTimeout(function() {rocksScale = 1.2}, 2000);
+      setTimeout(function() {rocksScale = 1.8}, 2000);
     }
     if(score == 40){
       rocksScale = 4;
-      setTimeout(function() {rocksScale = 1.5}, 3000);
+      setTimeout(function() {rocksScale = 2}, 3000);
     }
     if(score == 60){
       rocksScale = 5;
-      setTimeout(function() {rocksScale = 1.6}, 3000);
+      setTimeout(function() {rocksScale = 2.5}, 3000);
     }
   }
 
@@ -400,7 +400,7 @@ function collisionHandler(starship, rock) {
       score = 0;
       disBarPct = 100;
       fallSpeed = 1000;
-      rocksScale = 1;
+      rocksScale = 1.5;
       rocksInterval = 2000;
     }, 3000)
 
