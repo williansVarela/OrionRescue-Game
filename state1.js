@@ -60,6 +60,7 @@ orionRescue.state1.prototype = {
   },
 /*-----------------------------------------------------------*/
   create: function() {
+    menuMusic.mute = true; //stop main menu audio
 
     // Basic Set Up
     game.physics.startSystem(Phaser.Physics.ARCADE);
