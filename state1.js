@@ -343,7 +343,7 @@ orionRescue.state1.prototype = {
   },
 
   every5Seconds: function() {
-    fallSpeed += 50;
+    fallSpeed += 25;
     if(rocksScale < 3) {
       rocksScale += 0.05;
     }
@@ -351,7 +351,7 @@ orionRescue.state1.prototype = {
       rocksInterval -= 50;
     }
     if(score == 20){
-      rocksScale = 4;
+      rocksScale = 3.5;
       setTimeout(function() {rocksScale = 1.8}, 3000);
     }
     if(score == 40){
@@ -359,7 +359,7 @@ orionRescue.state1.prototype = {
       setTimeout(function() {rocksScale = 2}, 3000);
     }
     if(score == 60){
-      rocksScale = 5;
+      rocksScale = 4;
       setTimeout(function() {rocksScale = 2.5}, 2000);
     }
   }
