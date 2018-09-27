@@ -395,7 +395,6 @@ function gameOver() {
 
   // Kill Units  --------------------------------------------------------------------
   spaceship.kill();
-  rock.kill();
   fire.kill();
 
   //Reset and restart game
