@@ -317,11 +317,19 @@ orionRescue.state1.prototype = {
 }; //End of orionRescue.state1.prototype
 
 function btnSA(btn, size) {
+  /*Set element position on screen
+  Args:
+    btn: sprite image
+    size: size of the element
+  */
   btn.anchor.setTo(0.5, 0.5);
   btn.scale.setTo(0.35);
 };
 
 function collisionHandler(starship, rock) {
+  /*Detect collision between spaceship and asteroids
+  If it colloids then destroy spaceship and call Game Over */
+
   if(!gameWin) {
     rock.kill();
     explosionShip();
@@ -331,6 +339,8 @@ function collisionHandler(starship, rock) {
 };
 
 function rockShower(pos) {
+  //Call random asteroids on screen
+  
   rock = rocks.getRandom();
   while(rock.alive) {
     rock = rocks.getRandom();
