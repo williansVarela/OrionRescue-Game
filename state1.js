@@ -277,15 +277,7 @@ orionRescue.state1.prototype = {
             fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
           }, 2500);
           setTimeout(function() { //reset game
-            disBarPct = 100;
-            gameWin = false;
-            earthSent = false;
-            starRain.on = true;
-            score = 0;
-            fallSpeed = 1000;
-            rocksScale = 1.5;
-            spaceship.position.x == game.world.centerX
-            game.state.restart()
+            resetGame();
             game.state.start('mainmenu');
           }, 10500);
           
@@ -329,7 +321,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 1/(1000/fallSpeed);
+      disBarPct -= 20;//1/(1000/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
@@ -403,15 +395,9 @@ function collisionHandler(starship, rock) {
     fire.kill();
 
     setTimeout(function() {
+      resetGame();
       game.state.start('state1');
-      score = 0;
-      disBarPct = 100;
-      fallSpeed = 1000;
-      rocksScale = 1.5;
-      rocksInterval = 2000;
     }, 3000)
-
-    //Reset game
   }
 };
 
@@ -432,4 +418,17 @@ function rockShower(pos) {
 
 function fallRandom(min, max) {
   return (Math.floor(Math.random() * (max - min + 1) ) + min)/1000;
+};
+
+function resetGame() {
+  disBarPct = 100;
+  score = 0;
+  fallSpeed = 1000;
+  rocksScale = 1.5;
+  rocksInterval = 2000;
+  spaceship.position.x == game.world.centerX
+  gameWin = false;
+  earthSent = false;
+  starRain.on = true;
+  game.state.restart();
 };
