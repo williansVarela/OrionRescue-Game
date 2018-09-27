@@ -180,7 +180,7 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputDown.add(this.movRight, rgtBtn);
     rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
 
-    fadeaway('start');
+    fadeAwayScreen('start');
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -247,7 +247,7 @@ orionRescue.state1.prototype = {
   
           setTimeout(function() {
             earth.pause();
-            fadeaway('end');
+            fadeAwayScreen('end');
           }, 2500);
           setTimeout(function() { //reset game
             resetGame();
@@ -294,7 +294,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 1/(1000/fallSpeed);
+      disBarPct -= 20;
       this.distanceBar.setPercent(disBarPct);
       clockGame++;
     }
@@ -455,7 +455,7 @@ function giantAsteroids() {
   };
 };
 
-function fadeaway(condition) {
+function fadeAwayScreen(condition) {
   //Call a black screen that fade aways in several seconds
 
   if(condition == 'start'){
