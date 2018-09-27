@@ -308,27 +308,19 @@ orionRescue.state1.prototype = {
 
   every5Seconds: function() {
     fallSpeed += 25;
+
     if(rocksScale < 3) {
       rocksScale += 0.05;
-    }
+    };
     if(rocksInterval > 1500){
       rocksInterval -= 50;
-    }
-    if(clockGame == 20){
-      rocksScale = 3.5;
-      setTimeout(function() {rocksScale = 1.8}, 3000);
-    }
-    if(clockGame == 40){
-      rocksScale = 4;
-      setTimeout(function() {rocksScale = 2}, 3000);
-    }
-    if(clockGame == 60){
-      rocksScale = 4;
-      setTimeout(function() {rocksScale = 2.5}, 2000);
-    }
+    };
+
+    giantAsteroids();
+
   }
 
-};
+}; //End of orionRescue.state1.prototype
 
 function btnSA(btn, size) {
   btn.anchor.setTo(0.5, 0.5);
@@ -433,4 +425,19 @@ function explosionShip() {
   blast.scale.setTo(2);
   blast.animations.add('explode', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ,18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]);
   blast.animations.play('explode', 80, false, true);
+};
+
+function giantAsteroids() {
+  if(clockGame == 20){
+    rocksScale = 3.5;
+    setTimeout(function() {rocksScale = 1.8}, 3000);
+  };
+  if(clockGame == 40){
+    rocksScale = 4;
+    setTimeout(function() {rocksScale = 2}, 3000);
+  };
+  if(clockGame == 60){
+    rocksScale = 4;
+    setTimeout(function() {rocksScale = 2.5}, 2000);
+  };
 };
