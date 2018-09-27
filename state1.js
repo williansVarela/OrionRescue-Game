@@ -316,14 +316,14 @@ orionRescue.state1.prototype = {
 
 }; //End of orionRescue.state1.prototype
 
-function btnSA(btn, size) {
-  /*Set element position on screen
+function btnSA(element, size) {
+  /* Set element position on screen
   Args:
-    btn: sprite image
+    element: sprite image
     size: size of the element
   */
-  btn.anchor.setTo(0.5, 0.5);
-  btn.scale.setTo(0.35);
+  element.anchor.setTo(0.5, 0.5);
+  element.scale.setTo(0.35);
 };
 
 function collisionHandler(starship, rock) {
