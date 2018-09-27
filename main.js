@@ -4,8 +4,8 @@ var gameHeight = 2048;
 
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS);
 
-game.state.add('load2', orionRescue.load2);
+game.state.add('load', orionRescue.load);
 game.state.add('mainmenu', orionRescue.mainmenu);
 game.state.add('normastate', orionRescue.normastate);
 game.state.add('state1', orionRescue.state1);
-game.state.start('load2');
+game.state.start('load');
