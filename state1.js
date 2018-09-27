@@ -447,15 +447,15 @@ function giantAsteroids() {
   //Call some giant asteroids/candies on screen during the game. Returns nothing.
 
   if(clockGame == 20){
-    rocksScale = 3.5;
+    rocksScale = 3;
     setTimeout(function() {rocksScale = 1.8}, 3000);
   };
   if(clockGame == 40){
-    rocksScale = 4;
+    rocksScale = 3.5;
     setTimeout(function() {rocksScale = 2}, 3000);
   };
   if(clockGame == 60){
-    rocksScale = 4;
+    rocksScale = 3.5;
     setTimeout(function() {rocksScale = 2.5}, 2000);
   };
 };
