@@ -247,8 +247,10 @@ orionRescue.state1.prototype = {
 
       // Victory Checkup --------------------------------------------------------------------
       if(disBarPct < 0) {
-        starRain.on = false;
         gameWin = true;
+        spaceship.body.acceleration.x = 0;
+        fire.body.acceleration.x = 0;
+        starRain.on = false;
         spaceship.position.x = Math.round(spaceship.position.x);
         fire.position.x = Math.round(fire.position.x);
 
@@ -321,7 +323,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 20;//1/(1000/fallSpeed);
+      disBarPct -= 1/(1000/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       score++;
     }
