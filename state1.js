@@ -14,6 +14,8 @@ var bgrock8;
 var spaceship;
 var fire;
 var flying;
+var speed = 3500;
+var hearts;
 
 var rocks;
 var rocksScale = 1.5;
@@ -24,7 +26,6 @@ var lftBtnPressed = false;
 var rgtBtn;
 var rgtBtnPressed = false;
 
-var speed = 3500;
 var rockTimer = 0;
 var fallPttrns;
 var fallSpeed = 1000;
@@ -181,6 +182,13 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputDown.add(this.movRight, rgtBtn);
     rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
 
+    //Lives system
+    hearts = game.add.group();
+		hearts.create(gameWidth * 0.05, gameWidth * 0.05, 'heart').anchor.set(0.5);
+    hearts.create(gameWidth * 0.125, gameWidth * 0.05, 'heart').anchor.set(0.5);
+    hearts.create(gameWidth * 0.2, gameWidth * 0.05, 'heart').anchor.set(0.5);
+    
+
     fadeAwayScreen('start');
   },
 /*-----------------------------------------------------------*/
@@ -322,9 +330,9 @@ function btnSA(element, size) {
 function collisionHandler(starship, rock) {
   /*Detect collision between spaceship and asteroids
   If it colloids then destroy spaceship and call Game Over */
-
-  if(!gameWin) {
-    rock.kill();
+  rock.kill();
+  hearts.getTop().destroy();
+  if(!gameWin && hearts.length == 0) {
     explosionShip();
     gameOver();
   };
