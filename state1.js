@@ -232,13 +232,7 @@ orionRescue.state1.prototype = {
           spaceship.position.x = Math.round(spaceship.position.x);
           fire.position.x = Math.round(fire.position.x);
 
-          if(spaceship.position.x > game.world.centerX){
-            spaceship.position.x--;
-            fire.position.x--;
-          } else {
-            spaceship.position.x++;
-            fire.position.x++;
-          }
+          repositionShip();
         };
 
         if(gameWin && !earthSent && spaceship.position.x == game.world.centerX) {
@@ -341,9 +335,11 @@ function rockShower(pos) {
   //Call random asteroids on screen
   
   rock = rocks.getRandom();
+
   while(rock.alive) {
     rock = rocks.getRandom();
   };
+
   if(spaceship.alive) {
     var xPos = fallPttrns[pos] * gameWidth;
     rock.reset(xPos, 0);
@@ -377,6 +373,7 @@ function resetGame() {
   gameWin = false;
   earthSent = false;
   starRain.on = true;
+  controlShip = true;
   game.state.restart();
 };
 
@@ -476,4 +473,16 @@ function callEarth() {
   winSprite.anchor.setTo(0.5, 1);
   winSprite.scale.setTo(4);
   earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
+};
+
+function repositionShip() {
+  //Check and reposition spaceship in center of screen
+  
+  if(spaceship.position.x > game.world.centerX) {
+    spaceship.position.x--;
+    fire.position.x--;
+  } else {
+    spaceship.position.x++;
+    fire.position.x++;
+  }
 };
