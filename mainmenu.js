@@ -58,10 +58,14 @@ orionRescue.mainmenu.prototype = {
     btnhitbox.scale.set(1.7);
     btnhitbox.alpha = 0;
 
-    var manualbtn = game.add.button(gameWidth*0.87, gameHeight*0.91, 'manual', function() {
-        window.location.href = "manual.html";  
+    var manualbtn = game.add.button(gameWidth*0.5, gameHeight*0.8, 'manual', function() {
+        window.location.href = "manual.html";
       });
     manualbtn.anchor.setTo(0.5, 0.5);
+    manualbtn.scale.set(0.8);
+
+    var diarybtn = game.add.button(gameWidth*0.86, gameHeight*0.93, 'diary')
+    diarybtn.anchor.setTo(0.5, 0.5);
 
   },
   update: function() {

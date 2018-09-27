@@ -187,7 +187,7 @@ orionRescue.state1.prototype = {
 		hearts.create(gameWidth * 0.05, gameWidth * 0.05, 'heart').anchor.set(0.5);
     hearts.create(gameWidth * 0.125, gameWidth * 0.05, 'heart').anchor.set(0.5);
     hearts.create(gameWidth * 0.2, gameWidth * 0.05, 'heart').anchor.set(0.5);
-    
+
 
     fadeAwayScreen('start');
   },
@@ -196,7 +196,7 @@ orionRescue.state1.prototype = {
     // Starry and Planet Backgrounds Movement --------------------------------------------------------------------
     starryBG1.tilePosition.y += 0.9;
     starryBG2.tilePosition.y += 1;
-    
+
     fire.position.x = spaceship.position.x;
 
     if(planetBG.tilePosition.y < 8990) {
@@ -245,7 +245,7 @@ orionRescue.state1.prototype = {
 
         if(gameWin && !earthSent && spaceship.position.x == game.world.centerX) {
           callEarth();
-  
+
           setTimeout(function() {
             earth.pause();
             fadeAwayScreen('end');
@@ -254,19 +254,19 @@ orionRescue.state1.prototype = {
             resetGame();
             game.state.start('mainmenu');
           }, 10500);
-          
+
           var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
-  
+
           winText.anchor.setTo(0.5);
-  
+
           winText.font = 'Arial';
           winText.fontSize = 160;
-  
+
           var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
           grdGO.addColorStop(0, '#EDECF1');
           grdGO.addColorStop(1, '#C9CACE');
           winText.fill = grdGO;
-  
+
           winText.align = 'center';
           winText.setShadow(5, 5, 'rgba(131, 0, 8, 0.8)', 5);
           winText.alpha = 0;
@@ -342,7 +342,7 @@ function collisionHandler(starship, rock) {
 
 function rockShower(pos) {
   //Call random asteroids on screen
-  
+
   rock = rocks.getRandom();
 
   while(rock.alive) {
@@ -410,7 +410,7 @@ function gameOverText() {
 function gameOver() {
   /*
   Creates the Game Over screen, killing spaceship, asteroids, showing Game Over text on screen
-  and restarting the game 
+  and restarting the game
   */
 
   //Call game over text
@@ -429,7 +429,7 @@ function gameOver() {
 
 function explosionShip() {
   //Creates an animated explosion when spaceship collides with an object
-  
+
   var blackblast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blackblast');
   blackblast.anchor.setTo(0.5, 0.5);
   blackblast.scale.setTo(4);
@@ -486,7 +486,7 @@ function callEarth() {
 
 function repositionShip() {
   //Check and reposition spaceship in center of screen
-  
+
   if(spaceship.position.x > game.world.centerX) {
     spaceship.position.x--;
     fire.position.x--;
