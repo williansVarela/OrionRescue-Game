@@ -16,6 +16,8 @@ orionRescue.mainmenu = function() {};
 orionRescue.mainmenu.prototype = {
   preload: function() {},
   create: function() {
+    addChangeStateEventListeners();
+
     //Main Menu Theme audio
     menuMusic = game.add.audio('maintheme');
     menuMusic.play();
@@ -79,4 +81,18 @@ orionRescue.mainmenu.prototype = {
 
 function toNormastate() {
   game.state.start('normastate');
+}
+
+//Shortcut for developers to jump mainmenu screen straight to game screen
+function changeState(i, stateNum){
+  console.log('state' + stateNum);
+  game.state.start('state' + stateNum);
+}
+
+function addKeyCallback(key, fn, args){
+  game.input.keyboard.addKey(key).onDown.add(fn, null, null, args);
+}
+
+function addChangeStateEventListeners(){
+  addKeyCallback(Phaser.Keyboard.NINE, changeState, 1);
 }
