@@ -184,9 +184,9 @@ orionRescue.state1.prototype = {
 
     //Lives system
     hearts = game.add.group();
-		hearts.create(gameWidth * 0.05, gameWidth * 0.05, 'heart').anchor.set(0.5);
-    hearts.create(gameWidth * 0.125, gameWidth * 0.05, 'heart').anchor.set(0.5);
-    hearts.create(gameWidth * 0.2, gameWidth * 0.05, 'heart').anchor.set(0.5);
+		hearts.create(gameWidth * 0.05, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.15, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.25, gameWidth * 0.05, 'heart').anchor.set(0.4);
 
 
     fadeAwayScreen('start');
