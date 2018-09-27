@@ -13,7 +13,6 @@ var bgrock8;
 
 var spaceship;
 var fire;
-var flying;
 var speed = 3500;
 var hearts;
 
@@ -121,7 +120,7 @@ orionRescue.state1.prototype = {
     fire = game.add.sprite(game.world.centerX, gameHeight*0.835, 'fire');
     game.physics.enable(fire, Phaser.Physics.ARCADE);
     fire.body.drag.x = 5500;
-    fire.body.maxVelocity.x = 2000; //Set max velocity for spaceship
+    fire.body.maxVelocity.x = 2500; //Set max velocity for spaceship
     fire.body.collideWorldBounds = true;
     fire.anchor.setTo(0.5, 0);
     fire.scale.setTo(0.31578947368421052631578947368421);
@@ -129,10 +128,11 @@ orionRescue.state1.prototype = {
     fire.animations.play('flying', 24, true);
 
     spaceship = game.add.sprite(game.world.centerX, gameHeight*0.8, 'spaceship');
-    spaceship.anchor.setTo(0.5, 0.5);
     game.physics.enable(spaceship, Phaser.Physics.ARCADE);
     spaceship.body.drag.x = 5500;
     spaceship.body.maxVelocity.x = 2500; //Set max velocity for spaceship
+    spaceship.anchor.setTo(0.5, 0.5);
+    spaceship.animations.add('shipDamage', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
     spaceship.body.collideWorldBounds = true;
 
 
@@ -331,6 +331,7 @@ function collisionHandler(starship, rock) {
   /*Detect collision between spaceship and asteroids
   If it colloids then destroy spaceship and call Game Over */
   rock.kill();
+  spaceship.animations.play('shipDamage', 10, false);
   hearts.getTop().destroy();
   if(!gameWin && hearts.length == 0) {
     explosionShip();

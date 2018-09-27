@@ -36,7 +36,6 @@ orionRescue.load.prototype = {
     game.load.image('no', 'assets/UI/no.png');
 
     // Game Loads --------------------------------------------------------------------
-    game.load.image('spaceship', 'assets/spaceship.png');
     game.load.image('heart', 'assets/heart.png');
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
@@ -71,6 +70,7 @@ orionRescue.load.prototype = {
     game.load.spritesheet('blast', 'assets/spritesheets/explosion.png', 256, 256);
     game.load.spritesheet('blackblast', 'assets/spritesheets/blackexplosion.png', 128, 128);
     game.load.spritesheet('fire', 'assets/spritesheets/fire.png', 380, 355);
+    game.load.spritesheet('spaceship', 'assets/spritesheets/spaceship_damage.png', 120, 160);
 
     game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
 
