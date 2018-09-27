@@ -30,6 +30,10 @@ orionRescue.load.prototype = {
     game.load.image('normasad', 'assets/UI/normasad.png');
     game.load.image('normaangry', 'assets/UI/normaangry.png');
     game.load.image('normasurprised', 'assets/UI/normasurprised.png');
+    game.load.image('earthboy', 'assets/UI/earthboy.png');
+    game.load.image('earthgirl', 'assets/UI/earthgirl.png');
+    game.load.image('yes', 'assets/UI/yes.png');
+    game.load.image('no', 'assets/UI/no.png');
 
     // Game Loads --------------------------------------------------------------------
     game.load.image('spaceship', 'assets/spaceship.png');
@@ -74,6 +78,6 @@ orionRescue.load.prototype = {
   create: function() {
     game.state.start('mainmenu');
   },
-  
+
   update: function() {}
 };

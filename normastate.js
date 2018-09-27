@@ -3,9 +3,14 @@ var sentence;
 var typeColor = '#E0D7D7';
 var typeSpeed = 10;
 var btn;
+var boyBtn;
+var girlBtn;
+var yesBtn;
+var noBtn;
+
 
 var input;
-var playerName;
+var gender;
 var playerAge;
 
 var conversation = {
@@ -104,40 +109,22 @@ orionRescue.normastate.prototype = {
     var charIndex = 0;
 
     function addChar() {
+      //Adiciona um caractere à mensagem da Norma para cada vez que é chamado pelo loop 'loopText'
       sentence.text += text[charIndex];
       currentLine.text += text[charIndex];
       if(currentLine.width > width && text[charIndex] == ' ') {
         sentence.text += '\n';
         currentLine.text = '';
       }
+      // O if abaixo se torna verdadeiro após todos os caracteres da sentença da Norma terem sido digitados.
       if (charIndex >= text.length - 1) {
         game.time.events.remove(loopText);
-        if(conversation.index == 4 || conversation.index == 6) {
-          var inputProperties = {
-            font: '48px Arial',
-            fill: '#E95678',
-            backgroundColor: '#E0D7D7',
-            fontWeight: 'bold',
-            width: gameWidth*0.4,
-            padding: 8,
-            borderWidth: 4,
-            borderColor: '#E0D7D7',
-            placeHolderColor: '#FFF',
-            borderRadius: 6,
-            type: PhaserInput.InputType.text
-          };
-          if(conversation.index == 4) {
-            inputProperties.placeHolder = 'Qual é o seu nome?';
-          } else {
-            inputProperties.placeHolder = 'Quantos anos você tem?';
-          }
-          input = game.add.inputField(gameWidth*0.1, gameHeight*0.8, inputProperties);
-        } else if(conversation.index == 2) {
-
+        if(conversation.index == 2) {
+          //Resposta da criança (Botão invisível)
           btn = game.add.button(x, y + gameHeight*0.18, 'btn', convChange);
           btn.scale.set(3.3, 0.6);
           btn.alpha = 0;
-
+          //Resposta da criança (Texto)
           answer = game.add.text(x, y + gameHeight*0.18, conversation.answer, {fontSize: fontSize + 'px', fill: '#E59797', font: font});
           answer.alpha = 0;
           game.add.tween(answer).to( { alpha: 1 }, 1500, "Linear", true);
@@ -146,13 +133,34 @@ orionRescue.normastate.prototype = {
             game.add.tween(answer).to( { alpha: 0.6 }, 800, "Linear", true, 0, Number.MAX_VALUE, true);
           }, 1500)
 
-        }
-        if(conversation.index != 2) {
+        } else if(conversation.index == 4) {
+          boyBtn = game.add.button(gameWidth * 0.25, gameHeight * 0.8, 'earthboy', boyGetter);
+          girlBtn = game.add.button(gameWidth * 0.75, gameHeight * 0.8, 'earthgirl', girlGetter);
+          boyBtn.anchor.setTo(0.5, 0.5);
+          boyBtn.scale.set(2);
+          girlBtn.anchor.setTo(0.5, 0.5);
+          girlBtn.scale.set(2);
+        } else if(conversation.index == 5) {
+          yesBtn = game.add.button(gameWidth * 0.75, gameHeight * 0.75, 'yes', convChange);
+          noBtn = game.add.button(gameWidth * 0.25, gameHeight * 0.75, 'no', convChange);
+          yesBtn.anchor.setTo(0.5, 0.5);
+          noBtn.anchor.setTo(0.5, 0.5);
+          yesBtn.alpha = 0.9;
+          game.add.tween(yesBtn).to( { alpha: 1 }, 500, "Linear", true, 0, Number.MAX_VALUE, true);
+          noBtn.alpha = 0.9;
+        } else if(conversation.index == 8) {
+          yesBtn = game.add.button(gameWidth * 0.75, gameHeight * 0.75, 'yes', convChange);
+          noBtn = game.add.button(gameWidth * 0.25, gameHeight * 0.75, 'no', convChange);
+          yesBtn.anchor.setTo(0.5, 0.5);
+          noBtn.anchor.setTo(0.5, 0.5);
+          yesBtn.alpha = 0.9;
+          game.add.tween(yesBtn).to( { alpha: 1 }, 500, "Linear", true, 0, Number.MAX_VALUE, true);
+          noBtn.alpha = 0.9;
+        } else {
           btn = game.add.button(gameWidth*0.88, gameHeight*0.83, 'rightBtn', convChange);
           game.add.tween(btn).to( { alpha: 0.6 }, 800, "Linear", true, 0, Number.MAX_VALUE, true);
           btn.anchor.setTo(0.5, 0.5);
           btn.scale.set(0.3);
-
         }
 
       }
@@ -161,24 +169,21 @@ orionRescue.normastate.prototype = {
   }
 };
 
+//Função que chama a proxima sentença da Norma. Essa função é chamada por todos os botões presentes no NormaState
 function convChange() {
   btn.kill();
   if(conversation.index == 2) {
     answer.kill();
-  }
-  else if(conversation.index == 4 || conversation.index == 6) {
-    if(conversation.index == 4) {
-      playerName = input.value;
-    } else {
-      playerAge = input.value;
-      var ageInt = parseInt(playerAge);
-      if(ageInt >= 18) {
-        conversation.index = 0;
-        game.state.start('mainmenu');
-      }
-    }
-    input.kill();
-    textUpdate()
+  } else if(conversation.index == 4) {
+    textUpdate();
+    boyBtn.kill();
+    girlBtn.kill();
+  } else if(conversation.index == 5) {
+    yesBtn.kill();
+    noBtn.kill();
+  } else if(conversation.index == 8) {
+    yesBtn.kill();
+    noBtn.kill();
   }
   if(conversation.index < conversation.text.length - 1) {
     conversation.index++;
@@ -190,16 +195,26 @@ function convChange() {
   }
 }
 
+function boyGetter() {
+  gender = 'Terráqueo';
+  convChange();
+}
+
+function girlGetter() {
+  gender = 'Terráquea';
+  convChange();
+}
+
 function textUpdate() {
   conversation.text = [
-    "Bem vindo novamente, mestre Orion.\nEstava ansiosa pelo seu retorno!\nVeio atualizar o banco de dados com suas novas descobertas?",
-    "Parado aí!\nQuem é você?\nO mestre Orion não deixa ninguém usar a STARDEX!",
-    "Se bem que já faz tanto tempo desde a última vez que eu o vi...\nSerá que alguma coisa aconteceu com ele?",
-    "Pela Ursa Maior! Isso explica o porquê dele não ter entrado em contato comigo antes!",
-    "Ainda não nos apresentamos. Prazer, me chamo Norma, sou a assistente do Orion, o robô explorador mais incrível de Juno, construído pela mais habilidosa engenheira de Juno, a princesa Carina!\nE você, como se chama?",
-    "Hmmm... " + playerName + "... Que nome lindo!",
-    playerName + ", preciso que você ajude o mestre Orion. Preciso que você traga a nossa nave até o seu planeta urgentemente! Só que antes, preciso confirmar um detalhe... A princesa Carina só permite que crianças controlem a nave construída por ela! Quantos anos você tem?",
-    "Muito bem! ................................... Analisei a rota e existe um grupo de asteroides desde a localização atual da nave até este planeta. Você não poderá colidir com eles.",
-    "Não temos tempo a perder, " + playerName + "!\nAssim que estiver pronto me diga! Vou colocar os comandos da nave a sua disposição!"
+    "Bem vindo, mestre Orion.",
+    "Parado aí!\nQuem é você!? Onde está o mestre Orion?",
+    "Mas já faz tanto tempo desde a última vez que eu o vi...\nAlguma coisa aconteceu ao Orion?",
+    "Pela Ursa Maior! Isso explica a ausência dele!",
+    "Perdoe minha indelicadeza... Prazer, sou Norma, a assistente de Orion! E você, o que é?",
+    gender + ", preciso que você ajude o mestre Orion! Mas você é uma criança?",
+    "Ótimo! Apenas crianças podem controlar a nave do Orion.",
+    "Más notícias. Analisei a rota e existe um grupo de asteroides coloridos, porém muito perigosos, entre a nave e este planeta.",
+    "Você não pode colidir com nenhum deles! Está preparado para essa aventura?"
   ];
 }
