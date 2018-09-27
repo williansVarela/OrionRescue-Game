@@ -322,7 +322,7 @@ function btnSA(element, size) {
     element: sprite image
     size: size of the element
   */
-  element.anchor.setTo(0.5, 0.5);
+  element.anchor.setTo(size, size);
   element.scale.setTo(0.35);
 };
 
