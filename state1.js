@@ -331,7 +331,7 @@ function collisionHandler(starship, rock) {
   /*Detect collision between spaceship and asteroids
   If it colloids then destroy spaceship and call Game Over */
   rock.kill();
-  spaceship.animations.play('shipDamage', 30, false);
+  spaceship.animations.play('shipDamage', 120, false);
   hearts.getTop().destroy();
   if(!gameWin && hearts.length == 0) {
     explosionShip();
