@@ -11,6 +11,10 @@ var bgrock6;
 var bgrock7;
 var bgrock8;
 
+var music;
+var explosionSound;
+var damageSound;
+
 var spaceship;
 var fire;
 var speed = 3500;
@@ -60,6 +64,15 @@ orionRescue.state1.prototype = {
 /*-----------------------------------------------------------*/
   create: function() {
     menuMusic.mute = true; //stop main menu audio
+
+    //Game audios
+    music = game.add.audio('gameTheme');
+    music.volume = 0.3;
+    music.play();
+    explosionSound = game.add.audio('explosion');
+    explosionSound.loop = false;
+    damageSound = game.add.audio('damage');
+    damageSound.loop = false;
 
     // Basic Set Up
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -239,6 +252,7 @@ orionRescue.state1.prototype = {
           starRain.on = false;
           spaceship.position.x = Math.round(spaceship.position.x);
           fire.position.x = Math.round(fire.position.x);
+          music.fadeOut(2000); //Turn off music
 
           repositionShip();
         };
@@ -331,9 +345,11 @@ function collisionHandler(starship, rock) {
   /*Detect collision between spaceship and asteroids
   If it colloids then destroy spaceship and call Game Over */
   rock.kill();
+  damageSound.play();
   spaceship.animations.play('shipDamage', 120, false);
   hearts.getTop().destroy();
   if(!gameWin && hearts.length == 0) {
+    explosionSound.play();
     explosionShip();
     gameOver();
   };
@@ -383,6 +399,7 @@ function resetGame() {
   earthSent = false;
   starRain.on = true;
   controlShip = true;
+  music.mute = true;
   game.state.restart();
 };
 

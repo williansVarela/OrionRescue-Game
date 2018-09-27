@@ -22,6 +22,9 @@ orionRescue.load.prototype = {
     game.load.image('diary', 'assets/UI/diarybtn.png');
 
     game.load.audio('maintheme', ['assets/audio/Main_Title_Theme.mp3', 'assets/audio/Main_Title_Theme.ogg']);
+    game.load.audio('gameTheme', ['assets/audio/GameTheme.mp3', 'assets/audio/GameTheme.ogg']);
+    game.load.audio('explosion', ['assets/audio/explosion.mp3', 'assets/audio/explosion.ogg']);
+    game.load.audio('damage', ['assets/audio/damage.mp3', 'assets/audio/damage.ogg']);
 
     //Normastate
     game.load.image('textbox', 'assets/UI/textbox.png');
