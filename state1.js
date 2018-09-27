@@ -214,7 +214,7 @@ orionRescue.state1.prototype = {
 
       // RockShower Call --------------------------------------------------------------------
       if(game.time.now > rockTimer && !gameWin) {
-        fallPttrns = [fallRandom(100, 300), fallRandom(400, 600), fallRandom(700, 900)]
+        fallPttrns = [randRange(100, 300), randRange(400, 600), randRange(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
         rockShower(pos);
       }
@@ -345,11 +345,20 @@ function rockShower(pos) {
 };
 
 
-function fallRandom(min, max) {
+function randRange(min, max) {
+  /*
+  Returns a random number between a range.
+  Args:
+    min: minimum value of range
+    max: maximum value of range
+  */
+
   return (Math.floor(Math.random() * (max - min + 1) ) + min)/1000;
 };
 
 function resetGame() {
+  //Reset variables and restart game
+
   disBarPct = 100;
   clockGame = 0;
   fallSpeed = 1000;
@@ -363,9 +372,8 @@ function resetGame() {
 };
 
 function gameOverText() {
-  /*
-  Create and call a Game Over text on screen
-  */
+  //Create and call a Game Over text on screen
+
   var gameOverText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Game Over');
 
   gameOverText.anchor.setTo(0.5);
@@ -405,9 +413,8 @@ function gameOver() {
 };
 
 function explosionShip() {
-  /*
-  Creates an animated explosion when spaceship collides with an object
-  */
+  //Creates an animated explosion when spaceship collides with an object
+  
   var blackblast = game.add.sprite(spaceship.centerX, spaceship.centerY, 'blackblast');
   blackblast.anchor.setTo(0.5, 0.5);
   blackblast.scale.setTo(4);
@@ -423,6 +430,7 @@ function explosionShip() {
 
 function giantAsteroids() {
   //Call some giant asteroids/candies on screen during the game. Returns nothing.
+
   if(clockGame == 20){
     rocksScale = 3.5;
     setTimeout(function() {rocksScale = 1.8}, 3000);
