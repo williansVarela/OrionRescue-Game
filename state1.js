@@ -10,7 +10,6 @@ var bgrock5;
 var bgrock6;
 var bgrock7;
 var bgrock8;
-var bgfadeaway;
 
 var spaceship;
 var fire;
@@ -181,9 +180,7 @@ orionRescue.state1.prototype = {
     rgtBtn.onInputDown.add(this.movRight, rgtBtn);
     rgtBtn.onInputUp.add(this.stopRight, rgtBtn);
 
-    var fadeawaystart = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
-    fadeawaystart.alpha = 0.8;
-    game.add.tween(fadeawaystart).to( { alpha: 0 }, 3000, "Linear", true);
+    fadeaway('start');
   },
 /*-----------------------------------------------------------*/
   update: function() {
@@ -241,7 +238,7 @@ orionRescue.state1.prototype = {
           }
         };
 
-        if(gameWin == true && !earthSent && spaceship.position.x == game.world.centerX) {
+        if(gameWin && !earthSent && spaceship.position.x == game.world.centerX) {
           earthSent = true;
           winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
           winSprite.anchor.setTo(0.5, 1);
@@ -250,10 +247,7 @@ orionRescue.state1.prototype = {
   
           setTimeout(function() {
             earth.pause();
-            // Fadeaway background endgame
-            fadeawaybg = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
-            fadeawaybg.alpha = 0;
-            fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
+            fadeaway('end');
           }, 2500);
           setTimeout(function() { //reset game
             resetGame();
@@ -329,6 +323,7 @@ function btnSA(btn, size) {
 
 function collisionHandler(starship, rock) {
   if(!gameWin) {
+    rock.kill();
     explosionShip();
     gameOver();
   };
@@ -441,4 +436,18 @@ function giantAsteroids() {
     rocksScale = 4;
     setTimeout(function() {rocksScale = 2.5}, 2000);
   };
+};
+
+function fadeaway(condition) {
+  //Call a black screen that fade aways in several seconds
+
+  if(condition == 'start'){
+    var fadeawaystart = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
+    fadeawaystart.alpha = 1;
+    game.add.tween(fadeawaystart).to( { alpha: 0 }, 3000, "Linear", true);
+  } else if(condition == 'end') {
+    var fadeawayEnd = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
+    fadeawayEnd.alpha = 0;
+    fadeaway = game.add.tween(fadeawayEnd).to( { alpha: 1 }, 7000, "Linear", true);
+  }
 };
