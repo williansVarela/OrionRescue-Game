@@ -41,6 +41,7 @@ var grd;
 var starRain;
 
 var winSprite;
+var controlShip = true; // True is on and False is off
 var gameWin = false;
 var earthSent = false;
 
@@ -195,7 +196,7 @@ orionRescue.state1.prototype = {
     }
 
     // SpaceShip Movement --------------------------------------------------------------------
-    if(!gameWin){
+    if(controlShip){
       if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || rgtBtnPressed == true) {
         spaceship.body.acceleration.x = speed;
         fire.body.acceleration.x = speed;
@@ -220,15 +221,17 @@ orionRescue.state1.prototype = {
       }
 
       // Victory Checkup --------------------------------------------------------------------
-      if(disBarPct < 0) {
+      if(disBarPct <= 0) {
         gameWin = true;
-        spaceship.body.acceleration.x = 0;
-        fire.body.acceleration.x = 0;
-        starRain.on = false;
-        spaceship.position.x = Math.round(spaceship.position.x);
-        fire.position.x = Math.round(fire.position.x);
 
         if(!rock.alive){
+          controlShip = false; //Turn off spaceship controls
+          spaceship.body.acceleration.x = 0;
+          fire.body.acceleration.x = 0;
+          starRain.on = false;
+          spaceship.position.x = Math.round(spaceship.position.x);
+          fire.position.x = Math.round(fire.position.x);
+
           if(spaceship.position.x > game.world.centerX){
             spaceship.position.x--;
             fire.position.x--;
@@ -290,7 +293,7 @@ orionRescue.state1.prototype = {
 
   everySecond: function() {
     if(spaceship.alive && !gameWin) {
-      disBarPct -= 20;
+      disBarPct -= 1/(1000/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
       clockGame++;
     }
