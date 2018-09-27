@@ -247,11 +247,6 @@ orionRescue.state1.prototype = {
 
       // Victory Checkup --------------------------------------------------------------------
       if(disBarPct < 0) {
-        speed = 0;
-        spaceship.body.acceleration.x = 0;
-        fire.body.acceleration.x = 0;
-        rgtBtn.kill();
-        lftBtn.kill();
         starRain.on = false;
         gameWin = true;
         spaceship.position.x = Math.round(spaceship.position.x);
@@ -280,21 +275,19 @@ orionRescue.state1.prototype = {
             fadeawaybg = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
             fadeawaybg.alpha = 0;
             fadeaway = game.add.tween(fadeawaybg).to( { alpha: 1 }, 7000, "Linear", true);
-            setTimeout(function() { //reset game
-              disBarPct = 100;
-              gameWin = false;
-              earthSent = false;
-              starRain.on = true;
-              score = 0;
-              fallSpeed = 1000;
-              rocksScale = 1.5;
-              spaceship.position.x == game.world.centerX
-              game.state.restart()
-              rgtBtn.reset(gameWidth * 0.9, gameHeight * 0.9);
-              lftBtn.reset(gameWidth * 0.1, gameHeight * 0.9);
-              game.state.start('mainmenu');
-            }, 8000);
           }, 2500);
+          setTimeout(function() { //reset game
+            disBarPct = 100;
+            gameWin = false;
+            earthSent = false;
+            starRain.on = true;
+            score = 0;
+            fallSpeed = 1000;
+            rocksScale = 1.5;
+            spaceship.position.x == game.world.centerX
+            game.state.restart()
+            game.state.start('mainmenu');
+          }, 10500);
           
           var winText = game.add.text(game.world.centerX, game.world.centerY*0.8, 'Você conseguiu!!\nChegamos ao\nplaneta Terra');
   
@@ -316,7 +309,7 @@ orionRescue.state1.prototype = {
       };
 
     }
-  },
+  }, //Update Function End
 
   movLeft: function() {
     lftBtnPressed = true;
