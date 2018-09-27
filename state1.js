@@ -239,11 +239,7 @@ orionRescue.state1.prototype = {
         };
 
         if(gameWin && !earthSent && spaceship.position.x == game.world.centerX) {
-          earthSent = true;
-          winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
-          winSprite.anchor.setTo(0.5, 1);
-          winSprite.scale.setTo(4);
-          earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
+          callEarth();
   
           setTimeout(function() {
             earth.pause();
@@ -467,4 +463,14 @@ function fadeAwayScreen(condition) {
     fadeawayEnd.alpha = 0;
     fadeaway = game.add.tween(fadeawayEnd).to( { alpha: 1 }, 7000, "Linear", true);
   }
+};
+
+function callEarth() {
+  //Call earth sprite on screen
+
+  earthSent = true;
+  winSprite = game.add.sprite(game.world.centerX, 0, 'earthWin');
+  winSprite.anchor.setTo(0.5, 1);
+  winSprite.scale.setTo(4);
+  earth = game.add.tween(winSprite).to({ y: gameHeight + winSprite.height }, 15500, "Linear", true);
 };
