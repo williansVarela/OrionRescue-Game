@@ -33,11 +33,10 @@ var fallSpeed = 1000;
 var earthIcon;
 var disBarPct = 100;
 
-var score = 0;
+var clockGame = 0;
 
 var plntSpeed = 2;
 
-var scoreText = null;
 var grd;
 
 var starRain;
@@ -146,25 +145,6 @@ orionRescue.state1.prototype = {
     rocks.setAll('outOfBoundsKill', true);
     rocks.setAll('checkWorldBounds', true);
 
-    // Scoreboard --------------------------------------------------------------------
-    var timeText = game.add.text(gameWidth * 0.025, gameWidth * 0.025, 'PONTOS');
-    scoreText = game.add.text(gameWidth * 0.025, timeText.height * 2, '0');
-
-    timeText.anchor.setTo(0); timeText.anchor.setTo(0);
-
-    timeText.font = 'Revalia'; scoreText.font = 'Revalia';
-    timeText.fontSize = 30; scoreText.fontSize = 60;
-
-      //  x0, y0 - x1, y1
-    grd = scoreText.context.createLinearGradient(0, 0, 0, scoreText.canvas.height);
-    grd.addColorStop(0, '#EDECF1');
-    grd.addColorStop(1, '#C9CACE');
-    scoreText.fill = grd;
-    timeText.fill = '#EDECF1';
-
-    timeText.align = 'center'; scoreText.align = 'center';
-    scoreText.setShadow(5, 5, 'rgba(0,0,0,0.5)', 5);
-
     // Distance Bar --------------------------------------------------------------------
     var barConfig =
     {
@@ -234,9 +214,6 @@ orionRescue.state1.prototype = {
     if(spaceship.alive) {
       // Collision --------------------------------------------------------------------
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
-
-      // Scoreboard Update --------------------------------------------------------------------
-      scoreText.text = score;
 
       // RockShower Call --------------------------------------------------------------------
       if(game.time.now > rockTimer && !gameWin) {
@@ -325,7 +302,7 @@ orionRescue.state1.prototype = {
     if(spaceship.alive && !gameWin) {
       disBarPct -= 1/(1000/fallSpeed);
       this.distanceBar.setPercent(disBarPct);
-      score++;
+      clockGame++;
     }
   },
 
@@ -337,15 +314,15 @@ orionRescue.state1.prototype = {
     if(rocksInterval > 1500){
       rocksInterval -= 50;
     }
-    if(score == 20){
+    if(clockGame == 20){
       rocksScale = 3.5;
       setTimeout(function() {rocksScale = 1.8}, 3000);
     }
-    if(score == 40){
+    if(clockGame == 40){
       rocksScale = 4;
       setTimeout(function() {rocksScale = 2}, 3000);
     }
-    if(score == 60){
+    if(clockGame == 60){
       rocksScale = 4;
       setTimeout(function() {rocksScale = 2.5}, 2000);
     }
@@ -424,7 +401,7 @@ function fallRandom(min, max) {
 
 function resetGame() {
   disBarPct = 100;
-  score = 0;
+  clockGame = 0;
   fallSpeed = 1000;
   rocksScale = 1.5;
   rocksInterval = 2000;
