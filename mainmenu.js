@@ -64,7 +64,9 @@ orionRescue.mainmenu.prototype = {
     manualbtn.anchor.setTo(0.5, 0.5);
     manualbtn.scale.set(0.8);
 
-    var diarybtn = game.add.button(gameWidth*0.86, gameHeight*0.93, 'diary')
+    var diarybtn = game.add.button(gameWidth*0.86, gameHeight*0.93, 'diary', function() {
+      game.state.start('diary');
+    });
     diarybtn.anchor.setTo(0.5, 0.5);
 
   },

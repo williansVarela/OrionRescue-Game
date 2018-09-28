@@ -8,4 +8,5 @@ game.state.add('load', orionRescue.load);
 game.state.add('mainmenu', orionRescue.mainmenu);
 game.state.add('normastate', orionRescue.normastate);
 game.state.add('state1', orionRescue.state1);
+game.state.add('diary', orionRescue.diary);
 game.state.start('load');

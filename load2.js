@@ -78,6 +78,18 @@ orionRescue.load.prototype = {
 
     game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.6.28/webfont.js');
 
+    // Diary --------------------------------------------------------------------
+    game.load.image('diaryBG', 'assets/UI/diary/diaryBG.png');
+    game.load.image('diary1', 'assets/UI/diary/diary1.png');
+    game.load.image('diary2', 'assets/UI/diary/diary2.png');
+    game.load.image('diary3', 'assets/UI/diary/diary3.png');
+    game.load.image('diary4', 'assets/UI/diary/diary4.png');
+    game.load.image('diary5', 'assets/UI/diary/diary5.png');
+    game.load.image('diary6', 'assets/UI/diary/diary6.png');
+    game.load.image('diary7', 'assets/UI/diary/diary7.png');
+    game.load.image('diary8', 'assets/UI/diary/diary8.png');
+    game.load.image('outBtn', 'assets/UI/diary/diaryOutBtn.png');
+
   },
 
   create: function() {

@@ -34,7 +34,6 @@ orionRescue.normastate.prototype = {
     menuMusic.fadeOut(2000); //stop main menu audio
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.add.plugin(PhaserInput.Plugin);
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');
     stars1 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars1');
     stars2 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars2');
