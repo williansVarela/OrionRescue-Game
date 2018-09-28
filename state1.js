@@ -348,6 +348,7 @@ function collisionHandler(starship, rock) {
   damageSound.play();
   spaceship.animations.play('shipDamage', 120, false);
   hearts.getTop().destroy();
+  heartLostAnimation();
   if(!gameWin && hearts.length == 0) {
     explosionSound.play();
     explosionShip();
@@ -374,6 +375,25 @@ function rockShower(pos) {
   };
 };
 
+function heartLostAnimation() {
+  var heartX;
+  var flip = false;
+  if(spaceship.x <= game.world.centerX) {
+    heartX = spaceship.x + spaceship.width*1.5;
+  } else {
+    heartX = spaceship.x - spaceship.width*1.5;
+    flip = true;
+  }
+  var minusheart = game.add.sprite(heartX, spaceship.y, 'minusheart');
+  minusheart.anchor.setTo(0.5, 0.5);
+  minusheart.scale.setTo(0.6);
+  if(flip) {
+    minusheart.scale.x *= -1;
+  }
+
+  var heartEffect = game.add.tween(minusheart).to({ y: spaceship.y - 200, alpha: 0}, 1000, "Linear", true).onComplete.add(function() {minusheart.kill();});
+
+}
 
 function randRange(min, max) {
   /*

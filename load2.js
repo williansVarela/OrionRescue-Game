@@ -41,6 +41,7 @@ orionRescue.load.prototype = {
 
     // Game Loads --------------------------------------------------------------------
     game.load.image('heart', 'assets/heart.png');
+    game.load.image('minusheart', 'assets/minusheart.png');
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
