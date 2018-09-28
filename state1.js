@@ -376,14 +376,19 @@ function rockShower(pos) {
 };
 
 function heartLostAnimation() {
-  var heartX;
-  var flip = false;
+  // Chamda quando há colisão entre spaceship e asteroide
+  var heartX;  // Posição x do efeito.
+  var flip = false; // Caso seja true, inverte a imagem do coração horzontalmente
+
+  // Configurando posição x do efeito
   if(spaceship.x <= game.world.centerX) {
     heartX = spaceship.x + spaceship.width*1.5;
   } else {
     heartX = spaceship.x - spaceship.width*1.5;
     flip = true;
   }
+
+  // Criação da imagem
   var minusheart = game.add.sprite(heartX, spaceship.y, 'minusheart');
   minusheart.anchor.setTo(0.5, 0.5);
   minusheart.scale.setTo(0.6);
@@ -391,6 +396,7 @@ function heartLostAnimation() {
     minusheart.scale.x *= -1;
   }
 
+  // Tween que ao ser completado, exclui o sprite do coração.
   var heartEffect = game.add.tween(minusheart).to({ y: spaceship.y - 200, alpha: 0}, 1000, "Linear", true).onComplete.add(function() {minusheart.kill();});
 
 }
