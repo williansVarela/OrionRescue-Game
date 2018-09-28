@@ -61,6 +61,7 @@ orionRescue.diary = function() {};
 orionRescue.diary.prototype = {
   preload: function() {},
   create: function() {
+    menuMusic.fadeOut(2000);
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'diaryBG');
     var outBtn = game.add.button(1085, 115, 'outBtn', function() {game.state.start('mainmenu');});
