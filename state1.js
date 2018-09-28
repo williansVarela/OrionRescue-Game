@@ -49,6 +49,11 @@ var controlShip = true; // True is on and False is off
 var gameWin = false;
 var earthSent = false;
 
+var orionArm = {
+  beenSent: false,
+  beenPicked: false
+}
+
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
 
@@ -234,6 +239,15 @@ orionRescue.state1.prototype = {
       // Collision --------------------------------------------------------------------
       game.physics.arcade.overlap(spaceship, rocks, collisionHandler, null, this);
 
+      // Orion Arm --------------------------------------------------------------------
+      if(disBarPct <= 50) {
+        if(orionArm.beenSent == false) {
+          sendOrionArm();
+        } else{
+          game.physics.arcade.overlap(spaceship, orionArm.sprite, armPickUp, null);
+        }
+      }
+
       // RockShower Call --------------------------------------------------------------------
       if(game.time.now > rockTimer && !gameWin) {
         fallPttrns = [randRange(100, 300), randRange(400, 600), randRange(700, 900)]
@@ -331,6 +345,23 @@ orionRescue.state1.prototype = {
 
 }; //End of orionRescue.state1.prototype
 
+function sendOrionArm() {
+  // Cria o braço do orion, torna ele ARCADE, e faz ele cair.
+  orionArm.beenSent = true;
+  orionArm.sprite = game.add.sprite(game.world.centerX * .5, 0, 'orionarm');
+  orionArm.sprite.scale.setTo(0.25);
+  orionArm.sprite.anchor.setTo(0.5, 0.5);
+  game.add.tween(orionArm.sprite).to( { x: game.world.centerX * 1.5}, 4000, "Linear", true, 0, Number.MAX_VALUE, true);
+  game.physics.enable(orionArm.sprite, Phaser.Physics.ARCADE);
+  game.physics.arcade.moveToXY(orionArm.sprite, game.world.centerX, game.height * 1.2, fallSpeed/6);
+}
+
+function armPickUp(starship, arm) {
+  /* Chamado quando há a colisão entre nave e braço */
+  arm.kill();
+  orionArm.beenPicked = true;
+};
+
 function btnSA(element, size) {
   /* Set element position on screen
   Args:
@@ -354,8 +385,7 @@ function collisionHandler(starship, rock) {
     explosionShip();
     gameOver();
   };
-
-};
+}
 
 function rockShower(pos) {
   //Call random asteroids on screen
