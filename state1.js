@@ -73,6 +73,7 @@ orionRescue.state1.prototype = {
     //Game audios
     music = game.add.audio('gameTheme');
     music.volume = 0.3;
+    music.loop = true;
     music.play();
     explosionSound = game.add.audio('explosion');
     explosionSound.loop = false;
