@@ -330,8 +330,6 @@ orionRescue.state1.prototype = {
   },
 
   every5Seconds: function() {
-    fallSpeed += 25;
-
     if(rocksScale < 3) {
       rocksScale += 0.05;
     };
@@ -406,7 +404,8 @@ function rockShower(pos) {
 };
 
 function heartLostAnimation() {
-  // Chamda quando há colisão entre spaceship e asteroide
+  // Gera a animação de perda de 1 vida quando há colisão
+
   var heartX;  // Posição x do efeito.
   var flip = false; // Caso seja true, inverte a imagem do coração horzontalmente
 
@@ -416,7 +415,7 @@ function heartLostAnimation() {
   } else {
     heartX = spaceship.x - spaceship.width*1.5;
     flip = true;
-  }
+  };
 
   // Criação da imagem
   var minusheart = game.add.sprite(heartX, spaceship.y, 'minusheart');
@@ -447,7 +446,6 @@ function resetGame() {
 
   disBarPct = 100;
   clockGame = 0;
-  fallSpeed = 1000;
   rocksScale = 1.5;
   rocksInterval = 2000;
   spaceship.position.x == game.world.centerX
