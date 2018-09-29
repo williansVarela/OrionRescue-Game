@@ -20,6 +20,7 @@ orionRescue.mainmenu.prototype = {
 
     //Main Menu Theme audio
     menuMusic = game.add.audio('maintheme');
+    menuMusic.loop = true;
     menuMusic.play();
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
