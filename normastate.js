@@ -1,17 +1,26 @@
 var normadisplay;
 var sentence;
 var typeColor = '#E0D7D7';
-var typeSpeed = 10;
+var typeSpeed = 40;
 var btn;
 var boyBtn;
 var girlBtn;
 var yesBtn;
 var noBtn;
 
+var currentAudio;
+
 
 var input;
 var gender;
 var playerAge;
+
+var diAudios = {
+  load: ['dialogue1', 'dialogue2', 'dialogue3', 'dialogue4', 'dialogue5', 'dialogue6m', 'dialogue6f', 'dialogue7', 'dialogue8', 'dialogue9'],
+  wasPlayed: false,
+  hasStopped: false
+}
+
 
 var conversation = {
   index: 0,
@@ -34,6 +43,21 @@ orionRescue.normastate.prototype = {
     menuMusic.fadeOut(2000); //stop main menu audio
 
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+
+    diAudios.di1 = game.add.audio(diAudios.load[0]);
+    diAudios.di2 = game.add.audio(diAudios.load[1]);
+    diAudios.di3 = game.add.audio(diAudios.load[2]);
+    diAudios.di4 = game.add.audio(diAudios.load[3]);
+    diAudios.di5 = game.add.audio(diAudios.load[4]);
+    diAudios.di6m = game.add.audio(diAudios.load[5]);
+    diAudios.di6f = game.add.audio(diAudios.load[6]);
+    diAudios.di7 = game.add.audio(diAudios.load[7]);
+    diAudios.di8 = game.add.audio(diAudios.load[8]);
+    diAudios.di9 = game.add.audio(diAudios.load[9]);
+
+  
+
+
     game.add.tileSprite(0, 0, gameWidth, gameHeight, 'BG');
     stars1 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars1');
     stars2 = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'stars2');
@@ -61,21 +85,74 @@ orionRescue.normastate.prototype = {
 
     normadisplay.tilePosition.x += 1;
 
-    if(conversation.index == 1) {
-      normaMood.index = 3; // 0 - happy1, 1 - happy2, 2 - sad, 3 - angry, 4 - surprised
+    if(conversation.index == 0) {
+      normaMood.index = 1; // 0 - happy1, 1 - happy2, 2 - sad, 3 - angry, 4 - surprised
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di1;
+        diAudios.di1.play();
+        diAudios.wasPlayed = true;
+      }
+      
+    } else if(conversation.index == 1) {
+      normaMood.index = 3;
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di2;
+        diAudios.di2.play();
+        diAudios.wasPlayed = true;
+      }
     } else if(conversation.index == 2) {
       normaMood.index = 2;
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di3;
+        diAudios.di3.play();
+        diAudios.wasPlayed = true;
+      }
     } else if(conversation.index == 3) {
       normaMood.index = 4;
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di4;
+        diAudios.di4.play();
+        diAudios.wasPlayed = true;
+      }
     } else if(conversation.index == 4) {
       normaMood.index = 0;
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di5;
+        diAudios.di5.play();
+        diAudios.wasPlayed = true;
+      }
     } else if(conversation.index == 5) {
+      if(diAudios.wasPlayed == false) {
+        if(gender == 'Terráqueo') {
+          currentAudio = diAudios.di6m;
+          diAudios.di6m.play()
+        } else if(gender == 'Terráquea') {
+          currentAudio = diAudios.di6f;
+          diAudios.di6f.play();
+        }
+        diAudios.wasPlayed = true;
+      }
       normaMood.index = 1;
     } else if(conversation.index == 6) {
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di7;
+        diAudios.di7.play();
+        diAudios.wasPlayed = true;
+      }
       normaMood.index = 0;
     } else if(conversation.index == 7) {
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di8;
+        diAudios.di8.play();
+        diAudios.wasPlayed = true;
+      }
       normaMood.index = 2;
     } else if(conversation.index == 8) {
+      if(diAudios.wasPlayed == false) {
+        currentAudio = diAudios.di9;
+        diAudios.di9.play();
+        diAudios.wasPlayed = true;
+      }
       normaMood.index = 1;
     }
 
@@ -185,6 +262,7 @@ function convChange() {
     noBtn.kill();
   }
   if(conversation.index < conversation.text.length - 1) {
+    diAudios.wasPlayed = false;
     conversation.index++;
     sentence.text = '';
     orionRescue.normastate.prototype.convFunc(gameWidth*0.1, gameHeight*0.57, gameWidth*0.6, conversation.text[conversation.index], 50, typeSpeed, typeColor);

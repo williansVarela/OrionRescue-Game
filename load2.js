@@ -38,12 +38,32 @@ orionRescue.load.prototype = {
     game.load.image('earthgirl', 'assets/UI/earthgirl.png');
     game.load.image('yes', 'assets/UI/yes.png');
     game.load.image('no', 'assets/UI/no.png');
+    game.load.audio('dialogue1', 'assets/audio/normastate/dialogue1.mp3');
+    game.load.audio('dialogue2', 'assets/audio/normastate/dialogue2.mp3');
+    game.load.audio('dialogue3', 'assets/audio/normastate/dialogue3.mp3');
+    game.load.audio('dialogue4', 'assets/audio/normastate/dialogue4.mp3');
+    game.load.audio('dialogue5', 'assets/audio/normastate/dialogue5.mp3');
+    game.load.audio('dialogue6m', 'assets/audio/normastate/dialogue6m.mp3');
+    game.load.audio('dialogue6f', 'assets/audio/normastate/dialogue6f.mp3');
+    game.load.audio('dialogue7', 'assets/audio/normastate/dialogue7.mp3');
+    game.load.audio('dialogue8', 'assets/audio/normastate/dialogue8.mp3');
+    game.load.audio('dialogue9', 'assets/audio/normastate/dialogue9.mp3');
+
 
     // Game Loads --------------------------------------------------------------------
     game.load.image('heart', 'assets/heart.png');
     game.load.image('minusheart', 'assets/minusheart.png');
 
     game.load.image('orionarm', 'assets/orionarm.png');
+    game.load.audio('cuidado1', 'assets/audio/state1/cuidado1.mp3');
+    game.load.audio('cuidado2', 'assets/audio/state1/cuidado2.mp3');
+    game.load.audio('cuidado3', 'assets/audio/state1/cuidado3.mp3');
+    game.load.audio('gamestart1', 'assets/audio/state1/gamestart1.mp3');
+    game.load.audio('gamestart2', 'assets/audio/state1/gamestart2.mp3');
+    game.load.audio('isso', 'assets/audio/state1/isso.mp3');
+    game.load.audio('orionarm', 'assets/audio/state1/orionarm.mp3');
+    game.load.audio('victory', 'assets/audio/state1/victory.mp3');
+
 
     game.load.image('leftBtn', 'assets/lft-btn.png');
     game.load.image('rightBtn', 'assets/rgt-btn.png');
