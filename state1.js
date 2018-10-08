@@ -455,7 +455,7 @@ function resetGame() {
   disBarPct = 100;
   clockGame = 0;
   rocksScale = 1.5;
-  rocksInterval = 2000;
+  rocksInterval = 3000;
   spaceship.position.x == game.world.centerX
   gameWin = false;
   earthSent = false;
