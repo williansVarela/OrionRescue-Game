@@ -37,7 +37,7 @@ var rgtBtnPressed = false;
 
 var rockTimer = 0;
 var fallPttrns;
-var fallSpeed = 1000;
+var fallSpeed = 800;
 
 var earthIcon;
 var disBarPct = 100;
