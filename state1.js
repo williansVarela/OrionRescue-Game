@@ -22,7 +22,9 @@ var hearts;
 
 var rocks;
 var rocksScale = 1.5;
+var rocksScaleLimit = 2;
 var rocksInterval = 2000;
+var rocksIntervalLimit = 1500;
 
 var lftBtn;
 var lftBtnPressed = false;
@@ -336,10 +338,10 @@ orionRescue.state1.prototype = {
   },
 
   every5Seconds: function() {
-    if(rocksScale < 3) {
+    if(rocksScale < rocksScaleLimit) {
       rocksScale += 0.05;
     };
-    if(rocksInterval > 1500){
+    if(rocksInterval > rocksIntervalLimit){
       rocksInterval -= 50;
     };
 
