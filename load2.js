@@ -92,6 +92,7 @@ orionRescue.load.prototype = {
     game.load.image('closerstars', 'assets/gameBG/closerstars.png');
     game.load.image('furtherstars', 'assets/gameBG/furtherstars.png');
     game.load.image('fadeaway', 'assets/gameBG/fadeawayBg.png');
+    game.load.image('dmgScreen', 'assets/dmg_screen.png');
 
     game.load.spritesheet('rain', 'assets/spritesheets/rain.png', 20, 700);
     game.load.spritesheet('blast', 'assets/spritesheets/explosion.png', 256, 256);

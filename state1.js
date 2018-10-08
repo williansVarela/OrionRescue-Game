@@ -425,6 +425,14 @@ function spaceshipDamaged() {
   spaceship.animations.play('shipDamage', 120, false); //Spaceship damaged animation 
   hearts.getTop().destroy(); //Lose one life
   heartLostAnimation(); //Call animation
+  damagedAnimation(); //Call animation
+};
+
+function damagedAnimation() {
+  //Creates on screen damaged' animation
+  var damaged = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'dmgScreen');
+  damaged.alpha = 0;
+  game.add.tween(damaged).to( { alpha: 1 }, duration = 150, "Linear", true, 0, 2, true);
 };
 
 function cuidadoCall() {
@@ -588,7 +596,7 @@ function fadeAwayScreen(condition) {
   } else if(condition == 'end') {
     var fadeawayEnd = game.add.tileSprite(0, 0, gameWidth, gameHeight, 'fadeaway');
     fadeawayEnd.alpha = 0;
-    fadeaway = game.add.tween(fadeawayEnd).to( { alpha: 1 }, 7000, "Linear", true);
+    game.add.tween(fadeawayEnd).to( { alpha: 1 }, 7000, "Linear", true);
   }
 };
 
