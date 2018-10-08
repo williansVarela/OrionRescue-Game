@@ -174,7 +174,7 @@ orionRescue.state1.prototype = {
     spaceship.body.drag.x = 5500;
     spaceship.body.maxVelocity.x = 2500; //Set max velocity for spaceship
     spaceship.anchor.setTo(0.5, 0.5);
-    spaceship.animations.add('shipDamage', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]);
+    spaceship.animations.add('shipDamage', [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,0]);
     spaceship.body.collideWorldBounds = true;
 
 
