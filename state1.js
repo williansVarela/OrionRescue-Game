@@ -411,11 +411,7 @@ function collisionHandler(starship, rock) {
   /*Detect collision between spaceship and asteroids
   If it colloids then destroy spaceship and call Game Over */
   rock.kill();
-  damageSound.play();
-  cuidadoCall();
-  spaceship.animations.play('shipDamage', 120, false);
-  hearts.getTop().destroy();
-  heartLostAnimation();
+  spaceshipDamaged()
   if(!gameWin && hearts.length == 0) {
     explosionSound.play();
     explosionShip();
@@ -423,10 +419,18 @@ function collisionHandler(starship, rock) {
   };
 }
 
+function spaceshipDamaged() {
+  damageSound.play(); //Damage sound
+  cuidadoCall(); //Sound effect
+  spaceship.animations.play('shipDamage', 120, false); //Spaceship damaged animation 
+  hearts.getTop().destroy(); //Lose one life
+  heartLostAnimation(); //Call animation
+};
+
 function cuidadoCall() {
   var n = Math.floor(Math.random() * 3);
   cuidados[n].play();
-}
+};
 
 function rockShower(pos) {
   //Call random asteroids on screen
