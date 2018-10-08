@@ -23,8 +23,8 @@ var hearts;
 var rocks;
 var rocksScale = 1.5;
 var rocksScaleLimit = 2;
-var rocksInterval = 2000;
-var rocksIntervalLimit = 1500;
+var rocksInterval = 3000;
+var rocksIntervalLimit = 2000;
 
 var lftBtn;
 var lftBtnPressed = false;
