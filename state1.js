@@ -206,6 +206,11 @@ orionRescue.state1.prototype = {
 		hearts.create(gameWidth * 0.05, gameWidth * 0.05, 'heart').anchor.set(0.4);
     hearts.create(gameWidth * 0.15, gameWidth * 0.05, 'heart').anchor.set(0.4);
     hearts.create(gameWidth * 0.25, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.35, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.45, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.55, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.65, gameWidth * 0.05, 'heart').anchor.set(0.4);
+    hearts.create(gameWidth * 0.75, gameWidth * 0.05, 'heart').anchor.set(0.4);
 
 
     fadeAwayScreen('start');
