@@ -11,6 +11,10 @@ var bgrock6;
 var bgrock7;
 var bgrock8;
 
+var cuidados;
+
+var victorySound = false;
+
 var music;
 var explosionSound;
 var damageSound;
@@ -56,6 +60,10 @@ var orionArm = {
   beenPicked: false
 }
 
+var normaVoice = {
+  audio: ['cuidado1', 'cuidado2', 'cuidado3', 'gamestart1', 'gamestart2', 'isso', 'orionarm', 'victory']
+}
+
 orionRescue.state1 = function() {};
 orionRescue.state1.prototype = {
 
@@ -77,10 +85,23 @@ orionRescue.state1.prototype = {
     music.volume = 0.3;
     music.loop = true;
     music.play();
+
+    normaVoice.cuidado1 = game.add.audio('cuidado1');
+    normaVoice.cuidado2 = game.add.audio('cuidado2');
+    normaVoice.cuidado3 = game.add.audio('cuidado3');
+    normaVoice.gamestart1 = game.add.audio('gamestart1');
+    normaVoice.gamestart2 = game.add.audio('gamestart2');
+    normaVoice.isso = game.add.audio('isso');
+    normaVoice.orionarm = game.add.audio('orionarm');
+    normaVoice.victory = game.add.audio('victory');
+    cuidados = [normaVoice.cuidado1, normaVoice.cuidado2, normaVoice.cuidado3];
+
     explosionSound = game.add.audio('explosion');
     explosionSound.loop = false;
     damageSound = game.add.audio('damage');
     damageSound.loop = false;
+    normaVoice.gamestart1.play();
+    setTimeout(function () {normaVoice.gamestart2.play();}, 5000)
 
     // Basic Set Up
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -211,8 +232,6 @@ orionRescue.state1.prototype = {
     hearts.create(gameWidth * 0.35, gameWidth * 0.05, 'heart').anchor.set(0.4);
     hearts.create(gameWidth * 0.45, gameWidth * 0.05, 'heart').anchor.set(0.4);
     hearts.create(gameWidth * 0.55, gameWidth * 0.05, 'heart').anchor.set(0.4);
-    hearts.create(gameWidth * 0.65, gameWidth * 0.05, 'heart').anchor.set(0.4);
-    hearts.create(gameWidth * 0.75, gameWidth * 0.05, 'heart').anchor.set(0.4);
 
 
     fadeAwayScreen('start');
@@ -257,6 +276,7 @@ orionRescue.state1.prototype = {
       }
 
       // RockShower Call --------------------------------------------------------------------
+  
       if(game.time.now > rockTimer && !gameWin) {
         fallPttrns = [randRange(100, 300), randRange(400, 600), randRange(700, 900)]
         var pos = Math.floor(Math.random() * fallPttrns.length);
@@ -266,6 +286,11 @@ orionRescue.state1.prototype = {
       // Victory Checkup --------------------------------------------------------------------
       if(disBarPct <= 0) {
         gameWin = true;
+        if(victorySound == false) {
+          victorySound = true;
+          normaVoice.victory.play();
+        }
+        
 
         if(!rock.alive){
           controlShip = false; //Turn off spaceship controls
@@ -296,7 +321,7 @@ orionRescue.state1.prototype = {
           winText.anchor.setTo(0.5);
 
           winText.font = 'Arial';
-          winText.fontSize = 160;
+          winText.fontSize = 130;
 
           var grdGO = winText.context.createLinearGradient(0, 0, 0, winText.canvas.height);
           grdGO.addColorStop(0, '#EDECF1');
@@ -353,6 +378,7 @@ orionRescue.state1.prototype = {
 
 function sendOrionArm() {
   // Cria o braço do orion, torna ele ARCADE, e faz ele cair.
+  normaVoice.orionarm.play();
   orionArm.beenSent = true;
   orionArm.sprite = game.add.sprite(game.world.centerX * .5, 0, 'orionarm');
   orionArm.sprite.scale.setTo(0.25);
@@ -364,6 +390,7 @@ function sendOrionArm() {
 
 function armPickUp(starship, arm) {
   /* Chamado quando há a colisão entre nave e braço */
+  normaVoice.isso.play();
   arm.kill();
   orionArm.beenPicked = true;
 };
@@ -383,6 +410,7 @@ function collisionHandler(starship, rock) {
   If it colloids then destroy spaceship and call Game Over */
   rock.kill();
   damageSound.play();
+  cuidadoCall();
   spaceship.animations.play('shipDamage', 120, false);
   hearts.getTop().destroy();
   heartLostAnimation();
@@ -391,6 +419,11 @@ function collisionHandler(starship, rock) {
     explosionShip();
     gameOver();
   };
+}
+
+function cuidadoCall() {
+  var n = Math.floor(Math.random() * 3);
+  cuidados[n].play();
 }
 
 function rockShower(pos) {
